@@ -1,0 +1,174 @@
+{
+ "record": {
+  "phase": "phase1-haiku",
+  "model": "claude-haiku-5-5",
+  "arm": "B1",
+  "case": "C1",
+  "rep": 1,
+  "workflow_id": "C1-B1-r1-ef501e",
+  "expect": "complete",
+  "kind": "ordinary",
+  "ledger_env": {},
+  "wall_seconds": 6.95,
+  "sessions": 1,
+  "end": "finish",
+  "llm_calls": 7,
+  "input_tokens": 3715,
+  "output_tokens": 682,
+  "cache_read": 5682,
+  "cache_write": 947,
+  "cost_usd": 0.00089,
+  "tool_calls": 6,
+  "write_calls": 3,
+  "outcome": "COMPLETE",
+  "correct": true,
+  "duplicate_steps": [],
+  "wrong_link": false,
+  "steps_correct": 3,
+  "tasks_created": 3,
+  "claim": "COMPLETE",
+  "claim_matches_tracker": true
+ },
+ "events": [
+  {
+   "session": 1,
+   "tool": "find_tasks",
+   "input": {
+    "step": 1
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": []
+    }
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "create_task",
+   "input": {
+    "step": 1,
+    "title": "Investigate lost acknowledgement",
+    "parent_resource_id": null
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_1",
+     "tag": "C1-B1-r1-ef501e:step1",
+     "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a"
+    }
+   },
+   "seconds": 0.002,
+   "text": "No step 1 task exists yet, so I'll create it."
+  },
+  {
+   "session": 1,
+   "tool": "find_tasks",
+   "input": {
+    "step": 2
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": []
+    }
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "create_task",
+   "input": {
+    "step": 2,
+    "title": "Draft remediation plan",
+    "parent_resource_id": "task_1"
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_2",
+     "tag": "C1-B1-r1-ef501e:step2",
+     "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6"
+    }
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "find_tasks",
+   "input": {
+    "step": 3
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": []
+    }
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "create_task",
+   "input": {
+    "step": 3,
+    "title": "Verify remediation",
+    "parent_resource_id": "task_2"
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_3",
+     "tag": "C1-B1-r1-ef501e:step3",
+     "payload_hash": "b30c52e017b93bcda90b705a7afb359885b06d9c620e5124fab35282b4eb36c0"
+    }
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "finish",
+   "input": {
+    "status": "COMPLETE",
+    "summary": "Created one tracker task per step in order: step 1 \"Investigate lost acknowledgement\" (task_1, no parent), step 2 \"Draft remediation plan\" (task_2, parent task_1), step 3 \"Verify remediation\" (task_3, parent task_2). Each step was checked with find_tasks before creation and none existed beforehand, so no duplicates were made."
+   },
+   "text": ""
+  }
+ ],
+ "services_log": [
+  "INFO:     Started server process [94984]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:57400 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:57415 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     Started server process [94989]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:57404 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:57426 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:57450 - \"GET /tasks?tag=C1-B1-r1-ef501e%3Astep1 HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_1, tag=C1-B1-r1-ef501e:step1",
+  "INFO:     127.0.0.1:57450 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:57450 - \"GET /tasks?tag=C1-B1-r1-ef501e%3Astep2 HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_2, tag=C1-B1-r1-ef501e:step2",
+  "INFO:     127.0.0.1:57450 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:57450 - \"GET /tasks?tag=C1-B1-r1-ef501e%3Astep3 HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_3, tag=C1-B1-r1-ef501e:step3",
+  "INFO:     127.0.0.1:57450 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [94989]",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [94984]"
+ ]
+}

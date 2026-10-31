@@ -4,3 +4,4 @@ httpx>=0.27,<1
 openai>=1.68,<3
 python-dotenv>=1,<2
 pytest>=8,<10
+anthropic>=2,<3

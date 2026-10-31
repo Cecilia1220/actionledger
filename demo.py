@@ -22,10 +22,10 @@ def free_port():
 
 
 @contextmanager
-def services(data_dir):
+def services(data_dir, **extra_env):
     tracker_port, ledger_port = free_port(), free_port()
     tracker_url, ledger_url = f'http://127.0.0.1:{tracker_port}', f'http://127.0.0.1:{ledger_port}'
-    env = dict(os.environ, DATA_DIR=str(data_dir), TRACKER_URL=tracker_url)
+    env = dict(os.environ, DATA_DIR=str(data_dir), TRACKER_URL=tracker_url, **extra_env)
     processes = []
     log = (data_dir / 'services.log').open('w')
     try:
