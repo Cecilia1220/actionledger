@@ -100,3 +100,16 @@ def test_hw7_tracker_faults(system):
     tracker.post('/faults', json={'mode': 'lost_ack', 'break_lookup': True})
     tracker.post('/tasks', json={'tag': 'w:step4', 'payload': {}})
     assert tracker.get('/tasks', params={'tag': 'w:step4'}).status_code == 503
+
+
+def test_visibility_bound_turns_lasting_empty_lookup_into_safe_retry(tmp_path):
+    with services(tmp_path, VISIBILITY_BOUND_SECONDS='2') as (ledger, tracker, _):
+        tracker.post('/faults', json={'mode': 'lost_ack', 'match': ':step1', 'lookup_delay': 1})
+        assert ledger.post('/execute', json=request()).json()['status'] == 'RECOVERED_SUCCESS'
+        tracker.post('/faults', json={'mode': 'server_error'})
+        started = time.time()
+        assert ledger.post('/execute', json=request('w:step2')).json()['status'] == 'SAFE_TO_RETRY'
+        assert time.time() - started >= 2
+        assert ledger.post('/execute', json=request('w:step2')).json()['status'] == 'CONFIRMED_SUCCESS'
+        tracker.post('/faults', json={'mode': 'lost_ack', 'break_lookup': True})
+        assert ledger.post('/execute', json=request('w:step3')).json()['status'] == 'AMBIGUOUS'
