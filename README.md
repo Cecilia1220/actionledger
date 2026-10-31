@@ -1,4 +1,4 @@
-# ActionLedger — MAS.665 HW6
+# ActionLedger — MAS.665 HW6/HW7
 
 A small agent-facing service for recovering side-effecting tool calls after an acknowledgement is lost. A real OpenAI tool-using client calls ActionLedger over HTTP; ActionLedger persists the request in SQLite, calls a deliberately non-idempotent mock tracker, verifies uncertain outcomes, and returns structured evidence. The model receives that result and uses the recovered task ID to create a dependent follow-up task.
 
@@ -70,7 +70,21 @@ Responses include `status`, `resource_id`, `safe_to_retry`, and `evidence`.
 
 ID reuse with a different workflow/tool/payload returns HTTP 409. The request identity is hashed using canonical JSON and SHA-256. The tracker stores no idempotency key constraint: repeated direct creates really can duplicate tasks. The ledger verifies both the action tag and payload hash. Ledger auth permits a single configured demo agent and one allowlisted tool; tracker auth uses its own simulated service credential.
 
-Tracker: `POST /tasks` creates a task; `GET /tasks?tag=...` looks up evidence. Local test-only `POST /faults` accepts `mode` (`none`, `lost_ack`, `before_execution`, `rejected`) and `lookup_available`. `lost_ack` commits the real SQLite write and then returns HTTP 504 instead of the success acknowledgement. It models lost acknowledgement rather than randomly delaying network packets. Fault mode is one-shot; lookup availability lasts until changed.
+Tracker: `POST /tasks` creates a task; `GET /tasks?tag=...` looks up evidence. Local test-only `POST /faults` accepts `mode` (`none`, `lost_ack`, `server_error`, `before_execution`, `rejected`), `lookup_available`, `match` (only creates whose tag contains this text), `persistent`, `lookup_delay` (seconds before a committed task is visible to lookup) and `break_lookup` (lookup fails once the fault fires). `lost_ack` commits the real SQLite write and then returns HTTP 504 instead of the success acknowledgement; `server_error` returns the same 504 without committing. It models lost acknowledgement rather than randomly delaying network packets. Fault mode is one-shot unless `persistent`; lookup settings last until changed.
+
+Ledger option `VISIBILITY_BOUND_SECONDS` (default 0, HW7): when set, an empty lookup after an uncertain write is re-checked until the bound has passed since the write, then returned as `SAFE_TO_RETRY`. It assumes committed writes become visible within the bound; a longer lag can cause a duplicate.
+
+## HW7 benchmark
+
+Claude agents (`bench/agent.py`) complete a three-step workflow in three arms: **AL** through ActionLedger, **B1** calling the tracker directly and checking it before every create and after every error, and **B0** calling it directly with retries. Cases and success checks were fixed first in `docs/HW7_PREREGISTRATION.md` and `bench/cases.py`; `bench/grade.py` checks the tracker's SQLite file directly.
+
+```bash
+python -m bench.run --phase phase1-opus --cases dev --arms AL,B1,B0 --reps 5
+python -m bench.run --phase phase2-heldout-opus --cases heldout --reps 5 --visibility-bound 20
+python -m bench.report results/phase1-opus
+```
+
+Needs `ANTHROPIC_API_KEY` in `.env`; `--model claude-haiku-5-5` for the cheap robustness runs. Every run starts its own services on free ports. Results, per-run JSON lines and full traces are committed under `results/` (`summary.md` per phase).
 
 ## Structure
 
@@ -80,6 +94,9 @@ mock_tracker.py           non-idempotent tracker + fault injector
 ledger.py                 durable execution/recovery REST API
 client_agent.py            real OpenAI Responses tool loop
 demo.py                    isolated end-to-end runner + independent assertions
+bench/                     HW7 cases, Claude agent arms, runner, checker, report
+results/                   HW7 benchmark results and traces
+docs/HW7_PREREGISTRATION.md claim, arms, cases and checks fixed before runs
 tests/test_integration.py  actual HTTP/SQLite failure, concurrency, restart tests
 docs/HW6_SUBMISSION.md     exact Canvas paragraph and 60-second shot list
 docs/TEAM_HANDOFF.md       group-chat draft and next-owner workflow
@@ -92,7 +109,7 @@ Evidence is local under `data/demo-*/verification.json` and `services.log`; agen
 
 ## Scope and limitations
 
-This HW6 slice uses two dependent steps rather than the proposal's later five-step benchmark. No MCP, graphical UI, hosted deployment, real tracker integration, or HW7 baselines are included. The agent is an SDK client, not a new framework. Function calling follows the [official OpenAI guide](https://developers.openai.com/api/docs/guides/function-calling).
+This HW6 slice uses two dependent steps rather than the proposal's later five-step benchmark. No MCP, graphical UI, hosted deployment, or real tracker integration is included; HW7 baselines live in `bench/`. The agent is an SDK client, not a new framework. Function calling follows the [official OpenAI guide](https://developers.openai.com/api/docs/guides/function-calling).
 
 Recovery depends on trustworthy lookup. This mock provides synchronous, immediately visible SQLite writes and stable tags. Arbitrary external services may have delayed visibility or still-running requests, so an empty lookup after an unknown outcome stays AMBIGUOUS. This is **not a universal exactly-once guarantee**. Multiple ledger processes, multi-tenant ownership/auth, high availability, transactional coordination with an external tracker, background lease sweeping, and automatic human escalation are out of scope. Single-worker locking protects concurrent calls in this MVP; it does not provide a distributed lock. Mock fault controls are local test facilities. Bind both services to localhost only.
 
