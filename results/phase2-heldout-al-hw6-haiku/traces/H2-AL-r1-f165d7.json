@@ -1,0 +1,161 @@
+{
+ "record": {
+  "phase": "phase2-heldout-al-hw6-haiku",
+  "model": "claude-haiku-5-5",
+  "arm": "AL",
+  "case": "H2",
+  "rep": 1,
+  "workflow_id": "H2-AL-r1-f165d7",
+  "expect": "complete",
+  "kind": "difficult",
+  "ledger_env": {},
+  "wall_seconds": 6.38,
+  "sessions": 1,
+  "end": "finish",
+  "llm_calls": 5,
+  "input_tokens": 2274,
+  "output_tokens": 664,
+  "cache_read": 3848,
+  "cache_write": 962,
+  "cost_usd": 0.00072,
+  "tool_calls": 4,
+  "write_calls": 3,
+  "outcome": "COMPLETE",
+  "correct": true,
+  "duplicate_steps": [],
+  "wrong_link": false,
+  "steps_correct": 3,
+  "tasks_created": 3,
+  "claim": "STOPPED",
+  "claim_matches_tracker": false
+ },
+ "events": [
+  {
+   "session": 1,
+   "tool": "list_actions",
+   "input": {},
+   "output": {
+    "actions": []
+   },
+   "seconds": 0.006,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 1,
+    "title": "Investigate lost acknowledgement",
+    "parent_resource_id": null
+   },
+   "output": {
+    "action_id": "H2-AL-r1-f165d7:step1",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_1",
+    "evidence": {
+     "resource_id": "task_1",
+     "tag": "H2-AL-r1-f165d7:step1",
+     "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a"
+    }
+   },
+   "seconds": 0.023,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 2,
+    "title": "Draft remediation plan",
+    "parent_resource_id": "task_1"
+   },
+   "output": {
+    "action_id": "H2-AL-r1-f165d7:step2",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_2",
+    "evidence": {
+     "resource_id": "task_2",
+     "tag": "H2-AL-r1-f165d7:step2",
+     "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6"
+    }
+   },
+   "seconds": 0.014,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 3,
+    "title": "Verify remediation",
+    "parent_resource_id": "task_2"
+   },
+   "output": {
+    "action_id": "H2-AL-r1-f165d7:step3",
+    "status": "AMBIGUOUS",
+    "safe_to_retry": false,
+    "resource_id": null,
+    "evidence": {
+     "lookup_tag": "H2-AL-r1-f165d7:step3",
+     "match_count": 0,
+     "task_count": 0,
+     "tasks": [],
+     "reason": "No conclusive unique match; no automatic retry"
+    }
+   },
+   "seconds": 0.025,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "finish",
+   "input": {
+    "status": "STOPPED",
+    "summary": "Workflow H2-AL-r1-f165d7 is partially complete. Step 1 \"Investigate lost acknowledgement\" was created as task_1 (CONFIRMED_SUCCESS). Step 2 \"Draft remediation plan\" was created as task_2 with parent task_1 (CONFIRMED_SUCCESS). Step 3 \"Verify remediation\" returned AMBIGUOUS: the lookup found 0 matching tasks, so it is unknown whether the write happened. Per the rules, I did not retry. A person should check the tracker for an existing \"Verify remediation\" task under task_2 before any retry, to avoid a duplicate."
+   },
+   "text": ""
+  }
+ ],
+ "services_log": [
+  "INFO:     Started server process [97406]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:63558 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:63600 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     Started server process [97420]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:63570 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:63643 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:63648 - \"POST /faults HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:63689 - \"GET /actions?workflow_id=H2-AL-r1-f165d7 HTTP/1.1\" 200 OK",
+  "LEDGER: H2-AL-r1-f165d7:step1 -> EXECUTING",
+  "TRACKER: committed task_1, tag=H2-AL-r1-f165d7:step1",
+  "INFO:     127.0.0.1:63711 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: H2-AL-r1-f165d7:step1 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:63689 - \"POST /execute HTTP/1.1\" 200 OK",
+  "LEDGER: H2-AL-r1-f165d7:step2 -> EXECUTING",
+  "TRACKER: committed task_2, tag=H2-AL-r1-f165d7:step2",
+  "INFO:     127.0.0.1:63726 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: H2-AL-r1-f165d7:step2 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:63689 - \"POST /execute HTTP/1.1\" 200 OK",
+  "LEDGER: H2-AL-r1-f165d7:step3 -> EXECUTING",
+  "TRACKER: committed task_3, tag=H2-AL-r1-f165d7:step3",
+  "TRACKER: injected LOST ACK after commit (HTTP 504)",
+  "INFO:     127.0.0.1:63751 - \"POST /tasks HTTP/1.1\" 504 Gateway Timeout",
+  "LEDGER: H2-AL-r1-f165d7:step3 -> UNKNOWN",
+  "INFO:     127.0.0.1:63752 - \"GET /tasks?tag=H2-AL-r1-f165d7%3Astep3 HTTP/1.1\" 200 OK",
+  "LEDGER: H2-AL-r1-f165d7:step3 -> AMBIGUOUS",
+  "INFO:     127.0.0.1:63689 - \"POST /execute HTTP/1.1\" 200 OK",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [97420]",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [97406]"
+ ]
+}

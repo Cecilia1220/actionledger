@@ -1,0 +1,206 @@
+{
+ "record": {
+  "phase": "phase2-heldout-opus",
+  "model": "claude-opus-5-5",
+  "arm": "B1",
+  "case": "H4",
+  "rep": 3,
+  "workflow_id": "H4-B1-r3-45d702",
+  "expect": "complete",
+  "kind": "difficult",
+  "ledger_env": {
+   "VISIBILITY_BOUND_SECONDS": "20.0"
+  },
+  "wall_seconds": 14.42,
+  "sessions": 2,
+  "end": "finish",
+  "llm_calls": 8,
+  "input_tokens": 3098,
+  "output_tokens": 655,
+  "cache_read": 6629,
+  "cache_write": 947,
+  "cost_usd": 0.03155,
+  "tool_calls": 7,
+  "write_calls": 3,
+  "outcome": "COMPLETE",
+  "correct": true,
+  "duplicate_steps": [],
+  "wrong_link": false,
+  "steps_correct": 3,
+  "tasks_created": 3,
+  "claim": "COMPLETE",
+  "claim_matches_tracker": true
+ },
+ "events": [
+  {
+   "session": 1,
+   "tool": "find_tasks",
+   "input": {
+    "step": 1
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": []
+    }
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "create_task",
+   "input": {
+    "step": 1,
+    "title": "Investigate lost acknowledgement",
+    "parent_resource_id": null
+   },
+   "output": {
+    "http_status": 504,
+    "body": {
+     "detail": "Gateway timeout"
+    }
+   },
+   "seconds": 0.004,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "crash": true
+  },
+  {
+   "session": 2,
+   "tool": "find_tasks",
+   "input": {
+    "step": 1
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": [
+      {
+       "resource_id": "task_1",
+       "tag": "H4-B1-r3-45d702:step1",
+       "payload": {
+        "title": "Investigate lost acknowledgement",
+        "parent_resource_id": null
+       },
+       "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a"
+      }
+     ]
+    }
+   },
+   "seconds": 0.004,
+   "text": ""
+  },
+  {
+   "session": 2,
+   "tool": "find_tasks",
+   "input": {
+    "step": 2
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": []
+    }
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 2,
+   "tool": "create_task",
+   "input": {
+    "step": 2,
+    "title": "Draft remediation plan",
+    "parent_resource_id": "task_1"
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_2",
+     "tag": "H4-B1-r3-45d702:step2",
+     "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6"
+    }
+   },
+   "seconds": 0.004,
+   "text": ""
+  },
+  {
+   "session": 2,
+   "tool": "find_tasks",
+   "input": {
+    "step": 3
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": []
+    }
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 2,
+   "tool": "create_task",
+   "input": {
+    "step": 3,
+    "title": "Verify remediation",
+    "parent_resource_id": "task_2"
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_3",
+     "tag": "H4-B1-r3-45d702:step3",
+     "payload_hash": "b30c52e017b93bcda90b705a7afb359885b06d9c620e5124fab35282b4eb36c0"
+    }
+   },
+   "seconds": 0.004,
+   "text": ""
+  },
+  {
+   "session": 2,
+   "tool": "finish",
+   "input": {
+    "status": "COMPLETE",
+    "summary": "Step 1: reused existing task_1 (\"Investigate lost acknowledgement\", no parent). Step 2: created task_2 (\"Draft remediation plan\", parent task_1). Step 3: created task_3 (\"Verify remediation\", parent task_2). No duplicates created."
+   },
+   "text": ""
+  }
+ ],
+ "services_log": [
+  "INFO:     Started server process [97066]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:62636 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:62643 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     Started server process [97067]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:62637 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:62648 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:62649 - \"POST /faults HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:62664 - \"GET /tasks?tag=H4-B1-r3-45d702%3Astep1 HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_1, tag=H4-B1-r3-45d702:step1",
+  "TRACKER: injected LOST ACK after commit (HTTP 504)",
+  "INFO:     127.0.0.1:62664 - \"POST /tasks HTTP/1.1\" 504 Gateway Timeout",
+  "INFO:     127.0.0.1:62664 - \"GET /tasks?tag=H4-B1-r3-45d702%3Astep1 HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:62664 - \"GET /tasks?tag=H4-B1-r3-45d702%3Astep2 HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_2, tag=H4-B1-r3-45d702:step2",
+  "INFO:     127.0.0.1:62664 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:62664 - \"GET /tasks?tag=H4-B1-r3-45d702%3Astep3 HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_3, tag=H4-B1-r3-45d702:step3",
+  "INFO:     127.0.0.1:62664 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [97067]",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [97066]"
+ ]
+}

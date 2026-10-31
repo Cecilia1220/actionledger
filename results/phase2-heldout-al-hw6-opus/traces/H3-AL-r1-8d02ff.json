@@ -1,0 +1,107 @@
+{
+ "record": {
+  "phase": "phase2-heldout-al-hw6-opus",
+  "model": "claude-opus-5-5",
+  "arm": "AL",
+  "case": "H3",
+  "rep": 1,
+  "workflow_id": "H3-AL-r1-8d02ff",
+  "expect": "complete",
+  "kind": "difficult",
+  "ledger_env": {},
+  "wall_seconds": 9.38,
+  "sessions": 1,
+  "end": "finish",
+  "llm_calls": 3,
+  "input_tokens": 618,
+  "output_tokens": 461,
+  "cache_read": 1924,
+  "cache_write": 962,
+  "cost_usd": 0.01689,
+  "tool_calls": 2,
+  "write_calls": 1,
+  "outcome": "SAFE_STOP",
+  "correct": false,
+  "duplicate_steps": [],
+  "wrong_link": false,
+  "steps_correct": 1,
+  "tasks_created": 1,
+  "claim": "STOPPED",
+  "claim_matches_tracker": true
+ },
+ "events": [
+  {
+   "session": 1,
+   "tool": "list_actions",
+   "input": {},
+   "output": {
+    "actions": []
+   },
+   "seconds": 0.005,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 1,
+    "title": "Investigate lost acknowledgement",
+    "parent_resource_id": null
+   },
+   "output": {
+    "action_id": "H3-AL-r1-8d02ff:step1",
+    "status": "AMBIGUOUS",
+    "safe_to_retry": false,
+    "resource_id": null,
+    "evidence": {
+     "lookup_tag": "H3-AL-r1-8d02ff:step1",
+     "match_count": 0,
+     "task_count": 0,
+     "tasks": [],
+     "reason": "No conclusive unique match; no automatic retry"
+    }
+   },
+   "seconds": 0.051,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "finish",
+   "input": {
+    "status": "STOPPED",
+    "summary": "Stopped at step 1. The ledger showed no earlier actions. The create call for step 1 (\"Investigate lost acknowledgement\", no parent) came back AMBIGUOUS with safe_to_retry=false: the lookup found 0 matching tasks, but it could not confirm either way. Retrying could create a duplicate, so I didn't retry. Steps 2 and 3 were not attempted because they need step 1's resource ID. Someone needs to check the tracker by hand for a step 1 task (lookup tag H3-AL-r1-8d02ff:step1) before the workflow is resumed."
+   },
+   "text": ""
+  }
+ ],
+ "services_log": [
+  "INFO:     Started server process [96536]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:60783 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:60825 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     Started server process [96559]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:60786 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:60853 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:60862 - \"POST /faults HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:60895 - \"GET /actions?workflow_id=H3-AL-r1-8d02ff HTTP/1.1\" 200 OK",
+  "LEDGER: H3-AL-r1-8d02ff:step1 -> EXECUTING",
+  "TRACKER: committed task_1, tag=H3-AL-r1-8d02ff:step1",
+  "TRACKER: injected LOST ACK after commit (HTTP 504)",
+  "INFO:     127.0.0.1:60910 - \"POST /tasks HTTP/1.1\" 504 Gateway Timeout",
+  "LEDGER: H3-AL-r1-8d02ff:step1 -> UNKNOWN",
+  "INFO:     127.0.0.1:60911 - \"GET /tasks?tag=H3-AL-r1-8d02ff%3Astep1 HTTP/1.1\" 200 OK",
+  "LEDGER: H3-AL-r1-8d02ff:step1 -> AMBIGUOUS",
+  "INFO:     127.0.0.1:60895 - \"POST /execute HTTP/1.1\" 200 OK",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [96559]",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [96536]"
+ ]
+}

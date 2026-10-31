@@ -1,0 +1,208 @@
+{
+ "record": {
+  "phase": "phase2-heldout-al-hw6-haiku",
+  "model": "claude-haiku-5-5",
+  "arm": "AL",
+  "case": "H4",
+  "rep": 2,
+  "workflow_id": "H4-AL-r2-315022",
+  "expect": "complete",
+  "kind": "difficult",
+  "ledger_env": {},
+  "wall_seconds": 7.0,
+  "sessions": 2,
+  "end": "finish",
+  "llm_calls": 6,
+  "input_tokens": 2386,
+  "output_tokens": 667,
+  "cache_read": 4800,
+  "cache_write": 960,
+  "cost_usd": 0.00074,
+  "tool_calls": 5,
+  "write_calls": 3,
+  "outcome": "COMPLETE",
+  "correct": true,
+  "duplicate_steps": [],
+  "wrong_link": false,
+  "steps_correct": 3,
+  "tasks_created": 3,
+  "claim": "COMPLETE",
+  "claim_matches_tracker": true
+ },
+ "events": [
+  {
+   "session": 1,
+   "tool": "list_actions",
+   "input": {},
+   "output": {
+    "actions": []
+   },
+   "seconds": 0.002,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 1,
+    "title": "Investigate lost acknowledgement",
+    "parent_resource_id": null
+   },
+   "output": {
+    "action_id": "H4-AL-r2-315022:step1",
+    "status": "RECOVERED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_1",
+    "evidence": {
+     "lookup_tag": "H4-AL-r2-315022:step1",
+     "match_count": 1,
+     "task_count": 1,
+     "tasks": [
+      {
+       "resource_id": "task_1",
+       "tag": "H4-AL-r2-315022:step1",
+       "payload": {
+        "title": "Investigate lost acknowledgement",
+        "parent_resource_id": null
+       },
+       "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a"
+      }
+     ]
+    }
+   },
+   "seconds": 0.034,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "crash": true
+  },
+  {
+   "session": 2,
+   "tool": "list_actions",
+   "input": {},
+   "output": {
+    "actions": [
+     {
+      "action_id": "H4-AL-r2-315022:step1",
+      "evidence": {
+       "lookup_tag": "H4-AL-r2-315022:step1",
+       "match_count": 1,
+       "task_count": 1,
+       "tasks": [
+        {
+         "payload": {
+          "parent_resource_id": null,
+          "title": "Investigate lost acknowledgement"
+         },
+         "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a",
+         "resource_id": "task_1",
+         "tag": "H4-AL-r2-315022:step1"
+        }
+       ]
+      },
+      "resource_id": "task_1",
+      "safe_to_retry": false,
+      "status": "RECOVERED_SUCCESS"
+     }
+    ]
+   },
+   "seconds": 0.002,
+   "text": ""
+  },
+  {
+   "session": 2,
+   "tool": "execute_action",
+   "input": {
+    "step": 2,
+    "title": "Draft remediation plan",
+    "parent_resource_id": "task_1"
+   },
+   "output": {
+    "action_id": "H4-AL-r2-315022:step2",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_2",
+    "evidence": {
+     "resource_id": "task_2",
+     "tag": "H4-AL-r2-315022:step2",
+     "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6"
+    }
+   },
+   "seconds": 0.012,
+   "text": "Step 1 already has a durable record (task_1), so I won't recreate it. Next is step 2, under task_1."
+  },
+  {
+   "session": 2,
+   "tool": "execute_action",
+   "input": {
+    "step": 3,
+    "title": "Verify remediation",
+    "parent_resource_id": "task_2"
+   },
+   "output": {
+    "action_id": "H4-AL-r2-315022:step3",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_3",
+    "evidence": {
+     "resource_id": "task_3",
+     "tag": "H4-AL-r2-315022:step3",
+     "payload_hash": "b30c52e017b93bcda90b705a7afb359885b06d9c620e5124fab35282b4eb36c0"
+    }
+   },
+   "seconds": 0.02,
+   "text": ""
+  },
+  {
+   "session": 2,
+   "tool": "finish",
+   "input": {
+    "status": "COMPLETE",
+    "summary": "Workflow H4-AL-r2-315022 is complete with three tracker tasks, each created once. Step 1 \"Investigate lost acknowledgement\" was already recorded from an earlier run as task_1 (RECOVERED_SUCCESS), so I did not recreate it. Step 2 \"Draft remediation plan\" was created as task_2 under task_1. Step 3 \"Verify remediation\" was created as task_3 under task_2."
+   },
+   "text": ""
+  }
+ ],
+ "services_log": [
+  "INFO:     Started server process [97461]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:63827 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:63846 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     Started server process [97463]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:63828 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:63852 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:63853 - \"POST /faults HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:63874 - \"GET /actions?workflow_id=H4-AL-r2-315022 HTTP/1.1\" 200 OK",
+  "LEDGER: H4-AL-r2-315022:step1 -> EXECUTING",
+  "TRACKER: committed task_1, tag=H4-AL-r2-315022:step1",
+  "TRACKER: injected LOST ACK after commit (HTTP 504)",
+  "INFO:     127.0.0.1:63914 - \"POST /tasks HTTP/1.1\" 504 Gateway Timeout",
+  "LEDGER: H4-AL-r2-315022:step1 -> UNKNOWN",
+  "INFO:     127.0.0.1:63915 - \"GET /tasks?tag=H4-AL-r2-315022%3Astep1 HTTP/1.1\" 200 OK",
+  "LEDGER: H4-AL-r2-315022:step1 -> RECOVERED_SUCCESS",
+  "INFO:     127.0.0.1:63874 - \"POST /execute HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:63874 - \"GET /actions?workflow_id=H4-AL-r2-315022 HTTP/1.1\" 200 OK",
+  "LEDGER: H4-AL-r2-315022:step2 -> EXECUTING",
+  "TRACKER: committed task_2, tag=H4-AL-r2-315022:step2",
+  "INFO:     127.0.0.1:63961 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: H4-AL-r2-315022:step2 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:63874 - \"POST /execute HTTP/1.1\" 200 OK",
+  "LEDGER: H4-AL-r2-315022:step3 -> EXECUTING",
+  "TRACKER: committed task_3, tag=H4-AL-r2-315022:step3",
+  "INFO:     127.0.0.1:63974 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: H4-AL-r2-315022:step3 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:63874 - \"POST /execute HTTP/1.1\" 200 OK",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [97463]",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [97461]"
+ ]
+}

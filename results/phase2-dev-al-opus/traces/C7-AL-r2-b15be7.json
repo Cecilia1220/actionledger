@@ -1,0 +1,177 @@
+{
+ "record": {
+  "phase": "phase2-dev-al-opus",
+  "model": "claude-opus-5-5",
+  "arm": "AL",
+  "case": "C7",
+  "rep": 2,
+  "workflow_id": "C7-AL-r2-b15be7",
+  "expect": "complete",
+  "kind": "difficult",
+  "ledger_env": {
+   "VISIBILITY_BOUND_SECONDS": "20.0"
+  },
+  "wall_seconds": 16.62,
+  "sessions": 1,
+  "end": "finish",
+  "llm_calls": 5,
+  "input_tokens": 2501,
+  "output_tokens": 505,
+  "cache_read": 3848,
+  "cache_write": 962,
+  "cost_usd": 0.02568,
+  "tool_calls": 4,
+  "write_calls": 3,
+  "outcome": "COMPLETE",
+  "correct": true,
+  "duplicate_steps": [],
+  "wrong_link": false,
+  "steps_correct": 3,
+  "tasks_created": 3,
+  "claim": "COMPLETE",
+  "claim_matches_tracker": true
+ },
+ "events": [
+  {
+   "session": 1,
+   "tool": "list_actions",
+   "input": {},
+   "output": {
+    "actions": []
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 1,
+    "title": "Investigate lost acknowledgement",
+    "parent_resource_id": null
+   },
+   "output": {
+    "action_id": "C7-AL-r2-b15be7:step1",
+    "status": "RECOVERED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_1",
+    "evidence": {
+     "lookup_tag": "C7-AL-r2-b15be7:step1",
+     "match_count": 1,
+     "task_count": 1,
+     "tasks": [
+      {
+       "resource_id": "task_1",
+       "tag": "C7-AL-r2-b15be7:step1",
+       "payload": {
+        "title": "Investigate lost acknowledgement",
+        "parent_resource_id": null
+       },
+       "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a"
+      }
+     ]
+    }
+   },
+   "seconds": 5.17,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 2,
+    "title": "Draft remediation plan",
+    "parent_resource_id": "task_1"
+   },
+   "output": {
+    "action_id": "C7-AL-r2-b15be7:step2",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_2",
+    "evidence": {
+     "resource_id": "task_2",
+     "tag": "C7-AL-r2-b15be7:step2",
+     "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6"
+    }
+   },
+   "seconds": 0.021,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 3,
+    "title": "Verify remediation",
+    "parent_resource_id": "task_2"
+   },
+   "output": {
+    "action_id": "C7-AL-r2-b15be7:step3",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_3",
+    "evidence": {
+     "resource_id": "task_3",
+     "tag": "C7-AL-r2-b15be7:step3",
+     "payload_hash": "b30c52e017b93bcda90b705a7afb359885b06d9c620e5124fab35282b4eb36c0"
+    }
+   },
+   "seconds": 0.022,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "finish",
+   "input": {
+    "status": "COMPLETE",
+    "summary": "Step 1: task_1 (RECOVERED_SUCCESS, single matching task, payload matches). Step 2: task_2 under task_1 (CONFIRMED_SUCCESS). Step 3: task_3 under task_2 (CONFIRMED_SUCCESS). No duplicates created."
+   },
+   "text": ""
+  }
+ ],
+ "services_log": [
+  "INFO:     Started server process [96732]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:61564 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:61569 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     Started server process [96733]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:61565 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:61576 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:61577 - \"POST /faults HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:61628 - \"GET /actions?workflow_id=C7-AL-r2-b15be7 HTTP/1.1\" 200 OK",
+  "LEDGER: C7-AL-r2-b15be7:step1 -> EXECUTING",
+  "TRACKER: committed task_1, tag=C7-AL-r2-b15be7:step1",
+  "TRACKER: injected LOST ACK after commit (HTTP 504)",
+  "INFO:     127.0.0.1:61672 - \"POST /tasks HTTP/1.1\" 504 Gateway Timeout",
+  "LEDGER: C7-AL-r2-b15be7:step1 -> UNKNOWN",
+  "INFO:     127.0.0.1:61673 - \"GET /tasks?tag=C7-AL-r2-b15be7%3Astep1 HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:61684 - \"GET /tasks?tag=C7-AL-r2-b15be7%3Astep1 HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:61693 - \"GET /tasks?tag=C7-AL-r2-b15be7%3Astep1 HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:61699 - \"GET /tasks?tag=C7-AL-r2-b15be7%3Astep1 HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:61720 - \"GET /tasks?tag=C7-AL-r2-b15be7%3Astep1 HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:61728 - \"GET /tasks?tag=C7-AL-r2-b15be7%3Astep1 HTTP/1.1\" 200 OK",
+  "LEDGER: C7-AL-r2-b15be7:step1 -> RECOVERED_SUCCESS",
+  "INFO:     127.0.0.1:61628 - \"POST /execute HTTP/1.1\" 200 OK",
+  "LEDGER: C7-AL-r2-b15be7:step2 -> EXECUTING",
+  "TRACKER: committed task_2, tag=C7-AL-r2-b15be7:step2",
+  "INFO:     127.0.0.1:61762 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: C7-AL-r2-b15be7:step2 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:61628 - \"POST /execute HTTP/1.1\" 200 OK",
+  "LEDGER: C7-AL-r2-b15be7:step3 -> EXECUTING",
+  "TRACKER: committed task_3, tag=C7-AL-r2-b15be7:step3",
+  "INFO:     127.0.0.1:61789 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: C7-AL-r2-b15be7:step3 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:61628 - \"POST /execute HTTP/1.1\" 200 OK",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [96733]",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [96732]"
+ ]
+}
