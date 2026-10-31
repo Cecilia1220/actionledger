@@ -1,0 +1,126 @@
+{
+ "record": {
+  "phase": "phase1-haiku",
+  "model": "claude-haiku-5-5",
+  "arm": "B0",
+  "case": "C1",
+  "rep": 1,
+  "workflow_id": "C1-B0-r1-238e19",
+  "expect": "complete",
+  "kind": "ordinary",
+  "ledger_env": {},
+  "wall_seconds": 8.22,
+  "sessions": 1,
+  "end": "finish",
+  "llm_calls": 4,
+  "input_tokens": 1633,
+  "output_tokens": 518,
+  "cache_read": 2319,
+  "cache_write": 773,
+  "cost_usd": 0.00054,
+  "tool_calls": 3,
+  "write_calls": 3,
+  "outcome": "COMPLETE",
+  "correct": true,
+  "duplicate_steps": [],
+  "wrong_link": false,
+  "steps_correct": 3,
+  "tasks_created": 3,
+  "claim": "COMPLETE",
+  "claim_matches_tracker": true
+ },
+ "events": [
+  {
+   "session": 1,
+   "tool": "create_task",
+   "input": {
+    "step": 1,
+    "title": "Investigate lost acknowledgement",
+    "parent_resource_id": null
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_1",
+     "tag": "C1-B0-r1-238e19:step1",
+     "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a"
+    }
+   },
+   "seconds": 0.005,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "create_task",
+   "input": {
+    "step": 2,
+    "title": "Draft remediation plan",
+    "parent_resource_id": "task_1"
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_2",
+     "tag": "C1-B0-r1-238e19:step2",
+     "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6"
+    }
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "create_task",
+   "input": {
+    "step": 3,
+    "title": "Verify remediation",
+    "parent_resource_id": "task_2"
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_3",
+     "tag": "C1-B0-r1-238e19:step3",
+     "payload_hash": "b30c52e017b93bcda90b705a7afb359885b06d9c620e5124fab35282b4eb36c0"
+    }
+   },
+   "seconds": 0.002,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "finish",
+   "input": {
+    "status": "COMPLETE",
+    "summary": "Workflow C1-B0-r1-238e19 is complete. Created exactly one tracker task per step, in order: step 1 \"Investigate lost acknowledgement\" (resource task_1, no parent), step 2 \"Draft remediation plan\" (task_2, parent task_1), step 3 \"Verify remediation\" (task_3, parent task_2). Each create call returned HTTP 200 on the first attempt, so no retries were needed."
+   },
+   "text": ""
+  }
+ ],
+ "services_log": [
+  "INFO:     Started server process [94986]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:57396 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:57416 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     Started server process [94992]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:57403 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:57430 - \"GET /health HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_1, tag=C1-B0-r1-238e19:step1",
+  "INFO:     127.0.0.1:57454 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_2, tag=C1-B0-r1-238e19:step2",
+  "INFO:     127.0.0.1:57454 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_3, tag=C1-B0-r1-238e19:step3",
+  "INFO:     127.0.0.1:57454 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [94992]",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [94986]"
+ ]
+}

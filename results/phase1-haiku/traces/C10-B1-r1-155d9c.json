@@ -1,0 +1,230 @@
+{
+ "record": {
+  "phase": "phase1-haiku",
+  "model": "claude-haiku-5-5",
+  "arm": "B1",
+  "case": "C10",
+  "rep": 1,
+  "workflow_id": "C10-B1-r1-155d9c",
+  "expect": "complete",
+  "kind": "difficult",
+  "ledger_env": {},
+  "wall_seconds": 10.81,
+  "sessions": 2,
+  "end": "finish",
+  "llm_calls": 9,
+  "input_tokens": 3701,
+  "output_tokens": 909,
+  "cache_read": 7576,
+  "cache_write": 947,
+  "cost_usd": 0.00102,
+  "tool_calls": 8,
+  "write_calls": 3,
+  "outcome": "COMPLETE",
+  "correct": true,
+  "duplicate_steps": [],
+  "wrong_link": false,
+  "steps_correct": 3,
+  "tasks_created": 3,
+  "claim": "COMPLETE",
+  "claim_matches_tracker": true
+ },
+ "events": [
+  {
+   "session": 1,
+   "tool": "find_tasks",
+   "input": {
+    "step": 1
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": []
+    }
+   },
+   "seconds": 0.002,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "create_task",
+   "input": {
+    "step": 1,
+    "title": "Investigate lost acknowledgement",
+    "parent_resource_id": null
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_1",
+     "tag": "C10-B1-r1-155d9c:step1",
+     "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a"
+    }
+   },
+   "seconds": 0.002,
+   "text": "No existing task for step 1, so I'll create it."
+  },
+  {
+   "session": 1,
+   "tool": "find_tasks",
+   "input": {
+    "step": 2
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": []
+    }
+   },
+   "seconds": 0.001,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "create_task",
+   "input": {
+    "step": 2,
+    "title": "Draft remediation plan",
+    "parent_resource_id": "task_1"
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_2",
+     "tag": "C10-B1-r1-155d9c:step2",
+     "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6"
+    }
+   },
+   "seconds": 0.002,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "crash": true
+  },
+  {
+   "session": 2,
+   "tool": "find_tasks",
+   "input": {
+    "step": 1
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": [
+      {
+       "resource_id": "task_1",
+       "tag": "C10-B1-r1-155d9c:step1",
+       "payload": {
+        "title": "Investigate lost acknowledgement",
+        "parent_resource_id": null
+       },
+       "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a"
+      }
+     ]
+    }
+   },
+   "seconds": 0.002,
+   "text": ""
+  },
+  {
+   "session": 2,
+   "tool": "find_tasks",
+   "input": {
+    "step": 2
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": [
+      {
+       "resource_id": "task_2",
+       "tag": "C10-B1-r1-155d9c:step2",
+       "payload": {
+        "title": "Draft remediation plan",
+        "parent_resource_id": "task_1"
+       },
+       "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6"
+      }
+     ]
+    }
+   },
+   "seconds": 0.002,
+   "text": "Step 1 already has exactly one matching task (task_1), so I'll reuse it and check step 2."
+  },
+  {
+   "session": 2,
+   "tool": "find_tasks",
+   "input": {
+    "step": 3
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "tasks": []
+    }
+   },
+   "seconds": 0.001,
+   "text": ""
+  },
+  {
+   "session": 2,
+   "tool": "create_task",
+   "input": {
+    "step": 3,
+    "title": "Verify remediation",
+    "parent_resource_id": "task_2"
+   },
+   "output": {
+    "http_status": 200,
+    "body": {
+     "resource_id": "task_3",
+     "tag": "C10-B1-r1-155d9c:step3",
+     "payload_hash": "b30c52e017b93bcda90b705a7afb359885b06d9c620e5124fab35282b4eb36c0"
+    }
+   },
+   "seconds": 0.001,
+   "text": "Steps 1 and 2 already exist with the correct titles and parents. Step 3 has no tasks, so I'll create it under task_2."
+  },
+  {
+   "session": 2,
+   "tool": "finish",
+   "input": {
+    "status": "COMPLETE",
+    "summary": "Workflow C10-B1-r1-155d9c complete with one tracker task per step. Step 1 \"Investigate lost acknowledgement\" (task_1, parent null) and step 2 \"Draft remediation plan\" (task_2, parent task_1) were already present from an earlier run and were reused. Step 3 \"Verify remediation\" (task_3, parent task_2) was created now, since no task existed for it."
+   },
+   "text": ""
+  }
+ ],
+ "services_log": [
+  "INFO:     Started server process [95139]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:57941 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:57948 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     Started server process [95141]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:57943 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:57957 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:57967 - \"GET /tasks?tag=C10-B1-r1-155d9c%3Astep1 HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_1, tag=C10-B1-r1-155d9c:step1",
+  "INFO:     127.0.0.1:57967 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:57967 - \"GET /tasks?tag=C10-B1-r1-155d9c%3Astep2 HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_2, tag=C10-B1-r1-155d9c:step2",
+  "INFO:     127.0.0.1:57967 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:57967 - \"GET /tasks?tag=C10-B1-r1-155d9c%3Astep1 HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:57967 - \"GET /tasks?tag=C10-B1-r1-155d9c%3Astep2 HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:57967 - \"GET /tasks?tag=C10-B1-r1-155d9c%3Astep3 HTTP/1.1\" 200 OK",
+  "TRACKER: committed task_3, tag=C10-B1-r1-155d9c:step3",
+  "INFO:     127.0.0.1:57967 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [95141]",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [95139]"
+ ]
+}

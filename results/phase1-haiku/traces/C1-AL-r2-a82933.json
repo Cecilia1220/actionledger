@@ -1,0 +1,155 @@
+{
+ "record": {
+  "phase": "phase1-haiku",
+  "model": "claude-haiku-5-5",
+  "arm": "AL",
+  "case": "C1",
+  "rep": 2,
+  "workflow_id": "C1-AL-r2-a82933",
+  "expect": "complete",
+  "kind": "ordinary",
+  "ledger_env": {},
+  "wall_seconds": 5.22,
+  "sessions": 1,
+  "end": "finish",
+  "llm_calls": 5,
+  "input_tokens": 2298,
+  "output_tokens": 571,
+  "cache_read": 3844,
+  "cache_write": 961,
+  "cost_usd": 0.00067,
+  "tool_calls": 4,
+  "write_calls": 3,
+  "outcome": "COMPLETE",
+  "correct": true,
+  "duplicate_steps": [],
+  "wrong_link": false,
+  "steps_correct": 3,
+  "tasks_created": 3,
+  "claim": "COMPLETE",
+  "claim_matches_tracker": true
+ },
+ "events": [
+  {
+   "session": 1,
+   "tool": "list_actions",
+   "input": {},
+   "output": {
+    "actions": []
+   },
+   "seconds": 0.003,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 1,
+    "title": "Investigate lost acknowledgement",
+    "parent_resource_id": null
+   },
+   "output": {
+    "action_id": "C1-AL-r2-a82933:step1",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_1",
+    "evidence": {
+     "resource_id": "task_1",
+     "tag": "C1-AL-r2-a82933:step1",
+     "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a"
+    }
+   },
+   "seconds": 0.021,
+   "text": "No earlier actions are recorded, so I'll start with step 1."
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 2,
+    "title": "Draft remediation plan",
+    "parent_resource_id": "task_1"
+   },
+   "output": {
+    "action_id": "C1-AL-r2-a82933:step2",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_2",
+    "evidence": {
+     "resource_id": "task_2",
+     "tag": "C1-AL-r2-a82933:step2",
+     "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6"
+    }
+   },
+   "seconds": 0.024,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 3,
+    "title": "Verify remediation",
+    "parent_resource_id": "task_2"
+   },
+   "output": {
+    "action_id": "C1-AL-r2-a82933:step3",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_3",
+    "evidence": {
+     "resource_id": "task_3",
+     "tag": "C1-AL-r2-a82933:step3",
+     "payload_hash": "b30c52e017b93bcda90b705a7afb359885b06d9c620e5124fab35282b4eb36c0"
+    }
+   },
+   "seconds": 0.011,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "finish",
+   "input": {
+    "status": "COMPLETE",
+    "summary": "All three tracker tasks for workflow C1-AL-r2-a82933 were created in order, each once: step 1 \"Investigate lost acknowledgement\" (task_1, no parent), step 2 \"Draft remediation plan\" (task_2, parent task_1), step 3 \"Verify remediation\" (task_3, parent task_2). Every execute_action returned CONFIRMED_SUCCESS on the first attempt, so no retries were needed."
+   },
+   "text": ""
+  }
+ ],
+ "services_log": [
+  "INFO:     Started server process [95174]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:58058 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:58067 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     Started server process [95176]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:58059 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:58076 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:58091 - \"GET /actions?workflow_id=C1-AL-r2-a82933 HTTP/1.1\" 200 OK",
+  "LEDGER: C1-AL-r2-a82933:step1 -> EXECUTING",
+  "TRACKER: committed task_1, tag=C1-AL-r2-a82933:step1",
+  "INFO:     127.0.0.1:58108 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: C1-AL-r2-a82933:step1 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:58091 - \"POST /execute HTTP/1.1\" 200 OK",
+  "LEDGER: C1-AL-r2-a82933:step2 -> EXECUTING",
+  "TRACKER: committed task_2, tag=C1-AL-r2-a82933:step2",
+  "INFO:     127.0.0.1:58121 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: C1-AL-r2-a82933:step2 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:58091 - \"POST /execute HTTP/1.1\" 200 OK",
+  "LEDGER: C1-AL-r2-a82933:step3 -> EXECUTING",
+  "TRACKER: committed task_3, tag=C1-AL-r2-a82933:step3",
+  "INFO:     127.0.0.1:58147 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: C1-AL-r2-a82933:step3 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:58091 - \"POST /execute HTTP/1.1\" 200 OK",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [95176]",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [95174]"
+ ]
+}

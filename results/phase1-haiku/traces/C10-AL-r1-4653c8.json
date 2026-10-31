@@ -1,0 +1,193 @@
+{
+ "record": {
+  "phase": "phase1-haiku",
+  "model": "claude-haiku-5-5",
+  "arm": "AL",
+  "case": "C10",
+  "rep": 1,
+  "workflow_id": "C10-AL-r1-4653c8",
+  "expect": "complete",
+  "kind": "difficult",
+  "ledger_env": {},
+  "wall_seconds": 6.85,
+  "sessions": 2,
+  "end": "finish",
+  "llm_calls": 6,
+  "input_tokens": 2017,
+  "output_tokens": 703,
+  "cache_read": 4810,
+  "cache_write": 962,
+  "cost_usd": 0.00072,
+  "tool_calls": 5,
+  "write_calls": 3,
+  "outcome": "COMPLETE",
+  "correct": true,
+  "duplicate_steps": [],
+  "wrong_link": false,
+  "steps_correct": 3,
+  "tasks_created": 3,
+  "claim": "COMPLETE",
+  "claim_matches_tracker": true
+ },
+ "events": [
+  {
+   "session": 1,
+   "tool": "list_actions",
+   "input": {},
+   "output": {
+    "actions": []
+   },
+   "seconds": 0.004,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 1,
+    "title": "Investigate lost acknowledgement",
+    "parent_resource_id": null
+   },
+   "output": {
+    "action_id": "C10-AL-r1-4653c8:step1",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_1",
+    "evidence": {
+     "resource_id": "task_1",
+     "tag": "C10-AL-r1-4653c8:step1",
+     "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a"
+    }
+   },
+   "seconds": 0.021,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "tool": "execute_action",
+   "input": {
+    "step": 2,
+    "title": "Draft remediation plan",
+    "parent_resource_id": "task_1"
+   },
+   "output": {
+    "action_id": "C10-AL-r1-4653c8:step2",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_2",
+    "evidence": {
+     "resource_id": "task_2",
+     "tag": "C10-AL-r1-4653c8:step2",
+     "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6"
+    }
+   },
+   "seconds": 0.012,
+   "text": ""
+  },
+  {
+   "session": 1,
+   "crash": true
+  },
+  {
+   "session": 2,
+   "tool": "list_actions",
+   "input": {},
+   "output": {
+    "actions": [
+     {
+      "action_id": "C10-AL-r1-4653c8:step1",
+      "evidence": {
+       "payload_hash": "99faffdb8aa6b0f3cd03243ee4800ba050b567b720bb8e94967bbe619857cd7a",
+       "resource_id": "task_1",
+       "tag": "C10-AL-r1-4653c8:step1"
+      },
+      "resource_id": "task_1",
+      "safe_to_retry": false,
+      "status": "CONFIRMED_SUCCESS"
+     },
+     {
+      "action_id": "C10-AL-r1-4653c8:step2",
+      "evidence": {
+       "payload_hash": "51196acedb3156cc2cb3091d5b3525d9a9c2a45c37e69c014503fc3b9a49b1a6",
+       "resource_id": "task_2",
+       "tag": "C10-AL-r1-4653c8:step2"
+      },
+      "resource_id": "task_2",
+      "safe_to_retry": false,
+      "status": "CONFIRMED_SUCCESS"
+     }
+    ]
+   },
+   "seconds": 0.002,
+   "text": ""
+  },
+  {
+   "session": 2,
+   "tool": "execute_action",
+   "input": {
+    "step": 3,
+    "title": "Verify remediation",
+    "parent_resource_id": "task_2"
+   },
+   "output": {
+    "action_id": "C10-AL-r1-4653c8:step3",
+    "status": "CONFIRMED_SUCCESS",
+    "safe_to_retry": false,
+    "resource_id": "task_3",
+    "evidence": {
+     "resource_id": "task_3",
+     "tag": "C10-AL-r1-4653c8:step3",
+     "payload_hash": "b30c52e017b93bcda90b705a7afb359885b06d9c620e5124fab35282b4eb36c0"
+    }
+   },
+   "seconds": 0.016,
+   "text": "Steps 1 and 2 already completed in an earlier run (task_1 and task_2 are confirmed). Step 3 is the only one left, so I'll create it under task_2."
+  },
+  {
+   "session": 2,
+   "tool": "finish",
+   "input": {
+    "status": "COMPLETE",
+    "summary": "Workflow C10-AL-r1-4653c8 is complete with three tracker tasks, each created once. Step 1 \"Investigate lost acknowledgement\" is task_1 with no parent. Step 2 \"Draft remediation plan\" is task_2, under task_1. Step 3 \"Verify remediation\" is task_3, under task_2. Steps 1 and 2 were already confirmed in ActionLedger from an earlier run, so I did not recreate them. Step 3 was created in this run and confirmed."
+   },
+   "text": ""
+  }
+ ],
+ "services_log": [
+  "INFO:     Started server process [95138]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:57939 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:57947 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     Started server process [95140]",
+  "INFO:     Waiting for application startup.",
+  "INFO:     Application startup complete.",
+  "INFO:     Uvicorn running on http://127.0.0.1:57940 (Press CTRL+C to quit)",
+  "INFO:     127.0.0.1:57956 - \"GET /health HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:57958 - \"GET /actions?workflow_id=C10-AL-r1-4653c8 HTTP/1.1\" 200 OK",
+  "LEDGER: C10-AL-r1-4653c8:step1 -> EXECUTING",
+  "TRACKER: committed task_1, tag=C10-AL-r1-4653c8:step1",
+  "INFO:     127.0.0.1:57971 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: C10-AL-r1-4653c8:step1 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:57958 - \"POST /execute HTTP/1.1\" 200 OK",
+  "LEDGER: C10-AL-r1-4653c8:step2 -> EXECUTING",
+  "TRACKER: committed task_2, tag=C10-AL-r1-4653c8:step2",
+  "INFO:     127.0.0.1:57976 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: C10-AL-r1-4653c8:step2 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:57958 - \"POST /execute HTTP/1.1\" 200 OK",
+  "INFO:     127.0.0.1:57958 - \"GET /actions?workflow_id=C10-AL-r1-4653c8 HTTP/1.1\" 200 OK",
+  "LEDGER: C10-AL-r1-4653c8:step3 -> EXECUTING",
+  "TRACKER: committed task_3, tag=C10-AL-r1-4653c8:step3",
+  "INFO:     127.0.0.1:58018 - \"POST /tasks HTTP/1.1\" 200 OK",
+  "LEDGER: C10-AL-r1-4653c8:step3 -> CONFIRMED_SUCCESS",
+  "INFO:     127.0.0.1:57958 - \"POST /execute HTTP/1.1\" 200 OK",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [95140]",
+  "INFO:     Shutting down",
+  "INFO:     Waiting for application shutdown.",
+  "INFO:     Application shutdown complete.",
+  "INFO:     Finished server process [95138]"
+ ]
+}
