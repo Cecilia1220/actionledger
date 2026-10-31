@@ -84,3 +84,19 @@ def test_empty_uncertain_or_conflicting_evidence_stays_ambiguous(system):
     assert ledger.get('/status/w:step1').json()['status'] == 'AMBIGUOUS'
     tracker.post('/tasks', json={'tag': 'w:step1', 'payload': {'title': 'wrong'}})
     assert ledger.post('/execute', json=request()).json()['status'] == 'AMBIGUOUS'
+
+
+def test_hw7_tracker_faults(system):
+    ledger, tracker, _, _ = system
+    tracker.post('/faults', json={'mode': 'server_error', 'match': ':step2'})
+    assert tracker.post('/tasks', json={'tag': 'w:step1', 'payload': {}}).status_code == 200  # no match
+    assert tracker.post('/tasks', json={'tag': 'w:step2', 'payload': {}}).status_code == 504
+    assert tracker.get('/tasks', params={'tag': 'w:step2'}).json()['tasks'] == []  # nothing committed
+    tracker.post('/faults', json={'mode': 'lost_ack', 'lookup_delay': 1})
+    assert tracker.post('/tasks', json={'tag': 'w:step3', 'payload': {}}).status_code == 504
+    assert tracker.get('/tasks', params={'tag': 'w:step3'}).json()['tasks'] == []  # committed, not yet visible
+    time.sleep(1.1)
+    assert len(tracker.get('/tasks', params={'tag': 'w:step3'}).json()['tasks']) == 1
+    tracker.post('/faults', json={'mode': 'lost_ack', 'break_lookup': True})
+    tracker.post('/tasks', json={'tag': 'w:step4', 'payload': {}})
+    assert tracker.get('/tasks', params={'tag': 'w:step4'}).status_code == 503
