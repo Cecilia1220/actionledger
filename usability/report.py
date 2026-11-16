@@ -22,7 +22,7 @@ def cells(runs):
 
 
 def main():
-    rounds = {name: load(name) for name in ('r1', 'r1b', 'r2') if (EVIDENCE / name).exists()}
+    rounds = {name: load(name) for name in ('r1', 'r1b', 'r2', 'r2a') if (EVIDENCE / name).exists()}
     before, after = cells(rounds.get('r1', []) + rounds.get('r1b', [])), cells(rounds.get('r2', []))
     lines = ['# Cold-start results', '',
              'Useful results out of runs, by the checks fixed in docs/HW9_COLD_START_PLAN.md. '

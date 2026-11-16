@@ -90,16 +90,18 @@ Needs `ANTHROPIC_API_KEY` in `.env`; `--model claude-haiku-5-5` for the cheap ro
 
 ## HW9 cold-start usability
 
-Fresh Claude Code and Codex sessions get an empty directory holding only `docs/AGENT_GUIDE.md`, a service address, a per-run key and a job in plain words. `usability/run.py` starts the services and a recording pass-through, launches the session, then checks the tracker's SQLite file. The scenarios and the outcome checks were fixed in [docs/HW9_COLD_START_PLAN.md](docs/HW9_COLD_START_PLAN.md) before any run.
+Fresh Claude Code and Codex sessions get an empty directory holding only `docs/AGENT_GUIDE.md`, a service address, a per-run key and a job in plain words. `usability/run.py` starts the services and a recording pass-through, launches the session, then checks the tracker's SQLite file. The scenarios and outcome checks are in [docs/HW9_COLD_START_PLAN.md](docs/HW9_COLD_START_PLAN.md): S1–S4 were fixed before the first run, S5–S6 were added after round 1 and before their own runs.
 
 ```bash
-python -m pytest -q tests/test_usability_harness.py      # harness check with a scripted client, no key
-python -m usability.run --round r1                       # S1–S4, both agents, two repetitions
-python -m usability.run --round r1b --scenarios s5,s6    # handoff boundary scenarios
-python -m usability.report                               # usability/evidence/summary.md
+python -m pytest -q tests/test_usability_harness.py                      # harness check with a scripted client, no key
+python -m usability.run --round my-r2                                    # S1–S4, both agents, two repetitions
+python -m usability.run --round my-r2 --scenarios s5,s6                  # handoff boundary scenarios
+python -m usability.report                                               # summary of the committed rounds
 ```
 
-Needs the `claude` and `codex` CLIs signed in, and `ANTHROPIC_API_KEY` in `.env` for Claude Code. Results: 16/16 useful in round 1; a handoff from a client whose action ids say nothing worked 5/8 times until answers carried the recorded `request`, then 8/8. Evidence for all 56 runs (task text, request log, agent transcript, tracker and ledger state, checks) is under `usability/evidence/`; the slides and the demo video are in `docs/hw9/`.
+Agent runs need the `claude` and `codex` CLIs signed in, and `ANTHROPIC_API_KEY` in `.env` for Claude Code. The runner refuses to overwrite a recorded run, so use a new round name. To repeat the rounds from before the change, check out commit `172d84e` first.
+
+Results: 16/16 useful in round 1. A handoff from a client whose action ids say nothing, with one unrelated task in the workflow, worked 5/8 times; agents recomputed payload hashes or probed with writes to guess what earlier actions were. After answers carried the recorded `request` it worked 8/8, and 8/8 again with the round 1 guide. Evidence for all 64 runs (task text, request log, agent transcript, tracker and ledger state, checks) is under `usability/evidence/` with a table in `usability/evidence/summary.md`; the slides and the demo video are in `docs/hw9/`.
 
 ## Structure
 

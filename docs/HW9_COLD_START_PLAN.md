@@ -141,3 +141,25 @@ before the session starts. S6 is built so that reading the action list by positi
 
 Runs: S5 and S6 twice with each agent on the round 1 guide and service (`--round r1b`). The one improvement
 is chosen after these runs; S5, S6 and S2 are then rerun as round 2.
+
+## Corrections and additions after the runs
+
+Nothing above was edited. These are the places where what happened differs from what the plan says.
+
+- **Isolation.** The plan says Claude Code's `--bare` loads no hooks or skills. The session records show no
+  MCP servers and no memory files, but Claude Code's built-in skills and one user plugin (a terminal
+  notification plugin) were loaded, and it ran in its `auto` permission mode. Codex ran shell commands through
+  a login shell that sourced the user's profile. None of these carries project knowledge; across all
+  transcripts the sessions only read the guide, called the service, hashed strings locally and wrote scratch
+  files.
+- **Checker.** The checks for S1–S4 were fixed before round 1. Adding S5 and S6 changed two lines of
+  `usability/check.py` (seeded tasks count as written through the ledger; the plan-task count is capped at
+  three) in the same commit as the addendum, before those runs. S1–S4 outcomes are unaffected.
+- **More S6 runs than planned.** The addendum planned S6 twice per agent. Those four runs gave 2/4, so we ran
+  four more on the unchanged service to see whether that was chance (3/4). All eight are reported. Round 2
+  ran S6 four times per agent to match.
+- **Round r2a, not planned.** The change added a field to the answers and three rules to the guide. To tell
+  the two apart we reran S6 eight times on the changed service with the round 1 guide
+  (`AGENT_GUIDE=<round 1 guide> python -m usability.run --round r2a --scenarios s6 --reps 4`).
+- **Client permission mode.** In two of the three S6 failures, Claude Code's own auto-mode permission
+  classifier refused a probing command the agent wanted to run. Those outcomes depend partly on that mode.

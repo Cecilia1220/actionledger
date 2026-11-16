@@ -19,3 +19,6 @@ Not useful: s6-claude-r1 (report_complete_flag); s6-claude-r3 (task_count, title
 
 **r2**: 28 runs, 32 sessions, 28 useful; service commit 542011c; 89 requests; median session 16.9 s; Claude Code spend USD 0.75.
 Not useful: none.
+
+**r2a**: 8 runs, 8 sessions, 8 useful; service commit 6eea9e5; 16 requests; median session 16.6 s; Claude Code spend USD 0.20.
+Not useful: none.
