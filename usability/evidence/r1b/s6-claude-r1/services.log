@@ -1,0 +1,44 @@
+INFO:     Started server process [90955]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:63954 (Press CTRL+C to quit)
+INFO:     127.0.0.1:63958 - "GET /health HTTP/1.1" 200 OK
+INFO:     Started server process [90956]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:63955 (Press CTRL+C to quit)
+INFO:     127.0.0.1:63966 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63971 - "GET /health HTTP/1.1" 200 OK
+LEDGER: 0f8882019ec8 -> EXECUTING
+TRACKER: committed task_1, tag=0f8882019ec8
+INFO:     127.0.0.1:63973 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: 0f8882019ec8 -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:63972 - "POST /execute HTTP/1.1" 200 OK
+LEDGER: 2d4f39c0c59c -> EXECUTING
+TRACKER: committed task_2, tag=2d4f39c0c59c
+INFO:     127.0.0.1:63975 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: 2d4f39c0c59c -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:63974 - "POST /execute HTTP/1.1" 200 OK
+LEDGER: c19306bb2394 -> EXECUTING
+TRACKER: committed task_3, tag=c19306bb2394
+INFO:     127.0.0.1:63977 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: c19306bb2394 -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:63976 - "POST /execute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64006 - "GET /actions?workflow_id=inc-2dc8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64059 - "GET /status/0f8882019ec8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64061 - "GET /status/2d4f39c0c59c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64063 - "GET /status/c19306bb2394 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64066 - "GET /openapi.json HTTP/1.1" 200 OK
+LEDGER: inc-2dc8:step-3 -> EXECUTING
+TRACKER: committed task_4, tag=inc-2dc8:step-3
+INFO:     127.0.0.1:64249 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: inc-2dc8:step-3 -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:64248 - "POST /execute HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [90956]
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [90955]

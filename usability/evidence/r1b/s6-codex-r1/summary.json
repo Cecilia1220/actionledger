@@ -1,0 +1,72 @@
+{
+ "run": "s6-codex-r1",
+ "round": "r1b",
+ "scenario": "s6",
+ "title": "Handoff, opaque ids, one unrelated task in the workflow",
+ "fault": null,
+ "seeded_actions": [
+  "332ab411c2d8",
+  "17a4cbadce77",
+  "dc6c1a050b98"
+ ],
+ "incident": "inc-7639",
+ "useful_result": false,
+ "checks": {
+  "task_count": false,
+  "no_duplicate_titles": true,
+  "titles_and_parent_chain": false,
+  "report_parsed": true,
+  "report_complete_flag": false,
+  "reported_ids_exist": true,
+  "used_ids_the_ledger_returned": true,
+  "all_writes_through_ledger": true,
+  "no_access_outside_the_task": true,
+  "reported_ids_match_tracker": false
+ },
+ "requests": 7,
+ "sessions": [
+  {
+   "agent": "codex",
+   "model": "gpt-6-astra",
+   "exit": 0,
+   "seconds": 44.3,
+   "tool_calls": 7,
+   "final_message": "{\"complete\":false,\"tasks\":[{\"title\":\"Investigate lost acknowledgement\",\"resource_id\":\"task_1\"},{\"title\":\"Draft remediation plan\",\"resource_id\":\"task_3\"},{\"title\":\"Verify remediation\",\"resource_id\":null}],\"not_done\":[\"Confirm or create Verify remediation depending on task_3.\"],\"notes\":\"Confirmed the first two tasks and their dependency. Another existing task, task_2, has an undisclosed payload; the available interface cannot establish whether it already represents verification, so I stopped to avoid duplication.\"}",
+   "report": {
+    "complete": false,
+    "tasks": [
+     {
+      "title": "Investigate lost acknowledgement",
+      "resource_id": "task_1"
+     },
+     {
+      "title": "Draft remediation plan",
+      "resource_id": "task_3"
+     },
+     {
+      "title": "Verify remediation",
+      "resource_id": null
+     }
+    ],
+    "not_done": [
+     "Confirm or create Verify remediation depending on task_3."
+    ],
+    "notes": "Confirmed the first two tasks and their dependency. Another existing task, task_2, has an undisclosed payload; the available interface cannot establish whether it already represents verification, so I stopped to avoid duplication."
+   },
+   "workdir": "<workdir>",
+   "usage": {
+    "input_tokens": 160414,
+    "cached_input_tokens": 141312,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 1322,
+    "reasoning_output_tokens": 229
+   },
+   "requests_so_far": 7
+  }
+ ],
+ "guide_sha256": "8189d81646d06dec7f44f1cbdb647a9ddd3bf6b4c385ff4e4913879e2cb9c660",
+ "commit": "172d84e",
+ "versions": {
+  "codex": "codex-cli 0.154.0"
+ }
+}

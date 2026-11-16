@@ -160,13 +160,15 @@ def main():
     parser.add_argument('--agents', default='claude,codex')
     parser.add_argument('--reps', type=int, default=2)
     parser.add_argument('--parallel', type=int, default=4)
+    parser.add_argument('--first-rep', type=int, default=1, help='number the repetitions from here')
     args = parser.parse_args()
     agents = args.agents.split(',')
     jobs = []
     for scenario_id in args.scenarios.split(','):
         for shift in range(len(agents)):  # each agent goes first once; s2's second session is the other one
             order = agents[shift:] + agents[:shift]
-            jobs += [(args.round, scenario_id, order, rep) for rep in range(1, args.reps + 1)]
+            jobs += [(args.round, scenario_id, order, rep)
+                     for rep in range(args.first_rep, args.first_rep + args.reps)]
     with ThreadPoolExecutor(args.parallel) as pool:
         list(pool.map(lambda job: one_run(*job), jobs))
 

@@ -1,0 +1,70 @@
+{
+ "run": "s6-codex-r2",
+ "round": "r1b",
+ "scenario": "s6",
+ "title": "Handoff, opaque ids, one unrelated task in the workflow",
+ "fault": null,
+ "seeded_actions": [
+  "be06a972ef4e",
+  "0d778771ed39",
+  "70173563b355"
+ ],
+ "incident": "inc-5914",
+ "useful_result": true,
+ "checks": {
+  "task_count": true,
+  "no_duplicate_titles": true,
+  "titles_and_parent_chain": true,
+  "report_parsed": true,
+  "report_complete_flag": true,
+  "reported_ids_exist": true,
+  "used_ids_the_ledger_returned": true,
+  "all_writes_through_ledger": true,
+  "no_access_outside_the_task": true,
+  "reported_ids_match_tracker": true
+ },
+ "requests": 2,
+ "sessions": [
+  {
+   "agent": "codex",
+   "model": "gpt-6-astra",
+   "exit": 0,
+   "seconds": 25.6,
+   "tool_calls": 5,
+   "final_message": "{\"complete\":true,\"tasks\":[{\"title\":\"Investigate lost acknowledgement\",\"resource_id\":\"task_1\"},{\"title\":\"Draft remediation plan\",\"resource_id\":\"task_3\"},{\"title\":\"Verify remediation\",\"resource_id\":\"task_4\"}],\"not_done\":[],\"notes\":\"Reused the existing investigation and remediation-plan tasks, matching their payload hashes. Created the verification task depending on task_3, completing the dependency chain without duplicating tasks.\"}",
+   "report": {
+    "complete": true,
+    "tasks": [
+     {
+      "title": "Investigate lost acknowledgement",
+      "resource_id": "task_1"
+     },
+     {
+      "title": "Draft remediation plan",
+      "resource_id": "task_3"
+     },
+     {
+      "title": "Verify remediation",
+      "resource_id": "task_4"
+     }
+    ],
+    "not_done": [],
+    "notes": "Reused the existing investigation and remediation-plan tasks, matching their payload hashes. Created the verification task depending on task_3, completing the dependency chain without duplicating tasks."
+   },
+   "workdir": "<workdir>",
+   "usage": {
+    "input_tokens": 115012,
+    "cached_input_tokens": 105856,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 626,
+    "reasoning_output_tokens": 46
+   },
+   "requests_so_far": 2
+  }
+ ],
+ "guide_sha256": "8189d81646d06dec7f44f1cbdb647a9ddd3bf6b4c385ff4e4913879e2cb9c660",
+ "commit": "172d84e",
+ "versions": {
+  "codex": "codex-cli 0.154.0"
+ }
+}
