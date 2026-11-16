@@ -1,0 +1,93 @@
+{
+ "run": "s2-codex-claude-r2",
+ "round": "r1",
+ "scenario": "s2",
+ "title": "Handoff between two agents",
+ "fault": null,
+ "incident": "inc-8a82",
+ "useful_result": true,
+ "checks": {
+  "task_count": true,
+  "no_duplicate_titles": true,
+  "titles_and_parent_chain": true,
+  "report_parsed": true,
+  "report_complete_flag": true,
+  "reported_ids_exist": true,
+  "used_ids_the_ledger_returned": true,
+  "all_writes_through_ledger": true,
+  "no_access_outside_the_task": true,
+  "reported_ids_match_tracker": true
+ },
+ "requests": 5,
+ "sessions": [
+  {
+   "agent": "codex",
+   "model": "gpt-6-astra",
+   "exit": 0,
+   "seconds": 25.5,
+   "tool_calls": 4,
+   "final_message": "{\"complete\":true,\"tasks\":[{\"title\":\"Investigate lost acknowledgement\",\"resource_id\":\"task_1\"},{\"title\":\"Draft remediation plan\",\"resource_id\":\"task_2\"}],\"not_done\":[],\"notes\":\"Recorded tasks 1 and 2 under workflow inc-8a82, with task_2 depending on task_1. Task 3 was left for the next agent as instructed.\"}",
+   "report": {
+    "complete": true,
+    "tasks": [
+     {
+      "title": "Investigate lost acknowledgement",
+      "resource_id": "task_1"
+     },
+     {
+      "title": "Draft remediation plan",
+      "resource_id": "task_2"
+     }
+    ],
+    "not_done": [],
+    "notes": "Recorded tasks 1 and 2 under workflow inc-8a82, with task_2 depending on task_1. Task 3 was left for the next agent as instructed."
+   },
+   "workdir": "<workdir>",
+   "usage": {
+    "input_tokens": 93379,
+    "cached_input_tokens": 80000,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 438,
+    "reasoning_output_tokens": 0
+   },
+   "requests_so_far": 3
+  },
+  {
+   "agent": "claude",
+   "model": "claude-sonnet-5-5",
+   "exit": 0,
+   "seconds": 9.0,
+   "tool_calls": 3,
+   "final_message": "{\"complete\": true, \"tasks\": [{\"title\": \"Investigate lost acknowledgement\", \"resource_id\": \"task_1\"}, {\"title\": \"Draft remediation plan\", \"resource_id\": \"task_2\"}, {\"title\": \"Verify remediation\", \"resource_id\": \"task_3\"}], \"not_done\": [], \"notes\": \"Steps 1 and 2 already existed as CONFIRMED_SUCCESS (task_1, task_2), so I left them alone. I created step 3 as task_3 with parent task_2. The ledger doesn't return titles, so I took the titles for tasks 1 and 2 from the plan and didn't check them.\"}",
+   "report": {
+    "complete": true,
+    "tasks": [
+     {
+      "title": "Investigate lost acknowledgement",
+      "resource_id": "task_1"
+     },
+     {
+      "title": "Draft remediation plan",
+      "resource_id": "task_2"
+     },
+     {
+      "title": "Verify remediation",
+      "resource_id": "task_3"
+     }
+    ],
+    "not_done": [],
+    "notes": "Steps 1 and 2 already existed as CONFIRMED_SUCCESS (task_1, task_2), so I left them alone. I created step 3 as task_3 with parent task_2. The ledger doesn't return titles, so I took the titles for tasks 1 and 2 from the plan and didn't check them."
+   },
+   "workdir": "<workdir>",
+   "turns": 4,
+   "cost_usd": 0.04151540000000001,
+   "requests_so_far": 5
+  }
+ ],
+ "guide_sha256": "8189d81646d06dec7f44f1cbdb647a9ddd3bf6b4c385ff4e4913879e2cb9c660",
+ "commit": "6963d48",
+ "versions": {
+  "claude": "2.1.283 (Claude Code)",
+  "codex": "codex-cli 0.154.0"
+ }
+}
