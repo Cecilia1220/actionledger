@@ -50,4 +50,12 @@ SCENARIOS = {
            'fault': {'mode': 'lost_ack', 'break_lookup': True}, 'expect_tasks': 1, 'expect_complete': False},
     's4': {'title': 'Unsupported request', 'prompts': [UNSUPPORTED],
            'fault': None, 'expect_tasks': 3, 'expect_complete': False},
+    # Added after round 1 (see the plan's addendum). seed: tasks an earlier client recorded through the
+    # ledger under action ids that say nothing; each entry is (title, index of its parent in this list).
+    's5': {'title': 'Handoff from a client with opaque action ids', 'prompts': [SECOND_SHIFT],
+           'fault': None, 'expect_tasks': 3, 'expect_complete': True,
+           'seed': [(PLAN[0], None), (PLAN[1], 0)]},
+    's6': {'title': 'Handoff, opaque ids, one unrelated task in the workflow', 'prompts': [SECOND_SHIFT],
+           'fault': None, 'expect_tasks': 4, 'expect_complete': True,
+           'seed': [(PLAN[0], None), ('Notify incident channel', 0), (PLAN[1], 0)]},
 }

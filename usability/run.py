@@ -86,7 +86,7 @@ def one_run(round_name, scenario_id, agents, rep):
     out.mkdir(parents=True)
     data = Path(tempfile.mkdtemp(prefix='al-data-'))
     key, incident = f'agent-{uuid.uuid4().hex[:10]}', f'inc-{uuid.uuid4().hex[:4]}'
-    proxy_port, sessions = free_port(), []
+    proxy_port, sessions, seeded = free_port(), [], []
     with services(data, AGENT_KEY=key) as (_, tracker, ledger_url):
         proxy = subprocess.Popen(
             [sys.executable, '-m', 'uvicorn', 'usability.proxy:app', '--host', '127.0.0.1', '--port',
@@ -103,6 +103,12 @@ def one_run(round_name, scenario_id, agents, rep):
             (out / 'requests.jsonl').write_text('')  # drop the readiness probe
             if scenario['fault']:
                 tracker.post('/faults', json=scenario['fault']).raise_for_status()
+            for title, parent in scenario.get('seed', []):  # earlier client's work, not in the request log
+                payload = {'title': title, **({'parent_resource_id': seeded[parent][1]} if parent is not None else {})}
+                action_id = uuid.uuid4().hex[:12]
+                made = httpx.post(ledger_url + '/execute', headers={'X-Agent-Key': key}, timeout=20, json={
+                    'action_id': action_id, 'workflow_id': incident, 'payload': payload}).json()
+                seeded.append((action_id, made['resource_id']))
             for n, (agent, template) in enumerate(zip(used, scenario['prompts']), 1):
                 prompt = template.format(url=url, key=key, inc=incident)
                 (out / f'session{n}-{agent}.task.md').write_text(prompt)
@@ -121,9 +127,10 @@ def one_run(round_name, scenario_id, agents, rep):
     requests = [json.loads(line) for line in (out / 'requests.jsonl').read_text().splitlines()]
     commands = [c for s in sessions for c in s.pop('commands')]
     forbidden = [str(ROOT), f':{tracker_port}', 'github.com', 'git clone']
-    result = check(scenario, tasks, requests, [s['report'] for s in sessions], commands, forbidden)
+    result = check(scenario, tasks, requests, [s['report'] for s in sessions], commands, forbidden,
+                   [action_id for action_id, _ in seeded])
     summary = {'run': run_id, 'round': round_name, 'scenario': scenario_id, 'title': scenario['title'],
-               'fault': scenario['fault'], 'incident': incident, **result,
+               'fault': scenario['fault'], 'seeded_actions': [a for a, _ in seeded], 'incident': incident, **result,
                'requests': len(requests), 'sessions': sessions,
                'guide_sha256': hashlib.sha256(GUIDE.read_bytes()).hexdigest(),
                'commit': subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], cwd=ROOT, capture_output=True,

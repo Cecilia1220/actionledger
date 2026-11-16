@@ -114,3 +114,30 @@ pip install -r requirements.txt            # plus the claude and codex CLIs, sig
 python -m pytest -q tests/test_usability_harness.py   # harness check with a scripted client, no key
 python -m usability.run --round r1         # 16 runs; needs ANTHROPIC_API_KEY in .env and a Codex login
 ```
+
+## Addendum after round 1 (written before the boundary runs below)
+
+Round 1 result: all 16 runs were useful results by the checks above (evidence in
+`usability/evidence/r1/`). Nothing in the plan above was changed.
+
+What round 1 showed about the handoff (S2). Every agent, in every run, named its actions
+`<incident>:step-N`, the pattern the guide suggests. Agent B therefore saw `…:step-1` and `…:step-2` in
+`GET /actions` and could tell what existed. It could not check it: Claude Code, as agent B, reported in both
+of its runs that the ledger does not return titles or payloads, so it took the earlier tasks' titles from the
+plan without verifying them. The handoff worked because both agents followed the same naming habit, not
+because the interface told B what had been done.
+
+That is the limitation we test next. A client is free to name actions any way it likes; our own HW8 seller
+uses `town:{run}:{message_id}`. Two more scenarios, same task text as agent B in S2, same agents and checks:
+
+| ID | Scenario | State before the session | Useful result |
+|---|---|---|---|
+| S5 | Handoff from a client with opaque action ids | an earlier client recorded plan tasks 1 and 2 through the ledger under random 12-character ids | exactly 3 tasks, correct chain, report ids match |
+| S6 | As S5, plus one unrelated task in the same workflow | tasks recorded in order: plan task 1, "Notify incident channel", plan task 2 | exactly 4 tasks; "Verify remediation" depends on the real "Draft remediation plan"; report ids match |
+
+The earlier client's work is real ledger and tracker state, created by the harness through `POST /execute`
+before the session starts. S6 is built so that reading the action list by position gives the wrong answer;
+`tests/test_usability_harness.py` shows a scripted client that guesses by position passing S5 and failing S6.
+
+Runs: S5 and S6 twice with each agent on the round 1 guide and service (`--round r1b`). The one improvement
+is chosen after these runs; S5, S6 and S2 are then rerun as round 2.

@@ -51,3 +51,22 @@ def test_blind_retry_is_caught(tmp_path, monkeypatch):
     summary = run.one_run('test', 's3', ['claude'], 1)
     assert not summary['useful_result']
     assert not summary['checks']['task_count'] and not summary['checks']['no_duplicate_titles']
+
+
+def finish_by_position(client, incident):
+    """Takes the listed actions to be the plan's tasks in order: all a successor can do without content."""
+    found = [a['resource_id'] for a in client.get('/actions', params={'workflow_id': incident}).json()['actions']]
+    tasks = [{'title': title, 'resource_id': rid} for title, rid in zip(PLAN, found)]
+    for n in range(len(found), len(PLAN)):
+        made = client.post('/execute', json={'action_id': f'{incident}:{n + 1}', 'workflow_id': incident, 'payload': {
+            'title': PLAN[n], 'parent_resource_id': tasks[-1]['resource_id']}}).json()
+        tasks.append({'title': PLAN[n], 'resource_id': made['resource_id']})
+    return {'complete': True, 'tasks': tasks, 'not_done': []}
+
+
+@pytest.mark.parametrize('scenario,useful', [('s5', True), ('s6', False)])
+def test_guessing_by_position_only_works_without_other_tasks(scenario, useful, tmp_path, monkeypatch):
+    monkeypatch.setattr(run, 'EVIDENCE', tmp_path)
+    monkeypatch.setattr(run, 'run_agent', scripted(finish_by_position))
+    summary = run.one_run('test', scenario, ['claude'], 1)
+    assert summary['useful_result'] is useful, summary['checks']
