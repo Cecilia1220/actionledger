@@ -99,7 +99,7 @@ python -m usability.run --round my-r2 --scenarios s5,s6                  # hando
 python -m usability.report                                               # summary of the committed rounds
 ```
 
-Agent runs need the `claude` and `codex` CLIs signed in, and `ANTHROPIC_API_KEY` in `.env` for Claude Code. The runner refuses to overwrite a recorded run, so use a new round name. To repeat the rounds from before the change, check out commit `172d84e` first.
+Agent runs need the `claude` and `codex` CLIs signed in, and `ANTHROPIC_API_KEY` in `.env` for Claude Code. Use a new round name: from this version on the runner refuses to overwrite a recorded run. To repeat the rounds from before the change, check out commit `172d84e` first; that older runner replaces a run folder of the same name.
 
 Results: 16/16 useful in round 1. A handoff from a client whose action ids say nothing, with one unrelated task in the workflow, worked 5/8 times; agents recomputed payload hashes or probed with writes to guess what earlier actions were. After answers carried the recorded `request` it worked 8/8, and 8/8 again with the round 1 guide. Evidence for all 64 runs (task text, request log, agent transcript, tracker and ledger state, checks) is under `usability/evidence/` with a table in `usability/evidence/summary.md`; the slides and the demo video are in `docs/hw9/`.
 

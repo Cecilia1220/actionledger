@@ -29,7 +29,7 @@ MODELS = {'claude': 'claude-sonnet-5-5', 'codex': 'gpt-6-astra'}
 
 
 def agent_command(agent, prompt, workdir, last_message):
-    if agent == 'claude':  # Claude Code, headless, no user settings, memory, hooks or MCP servers
+    if agent == 'claude':  # Claude Code, headless; --bare loads no MCP servers or memory files
         return ['claude', '-p', prompt, '--bare', '--model', MODELS[agent], '--output-format', 'stream-json',
                 '--verbose', '--allowedTools', 'Bash', 'Read', '--max-turns', '40', '--no-session-persistence']
     return ['codex', 'exec', '--json', '--skip-git-repo-check', '--ephemeral', '--ignore-user-config',

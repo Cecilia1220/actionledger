@@ -2,6 +2,7 @@
 from collections import defaultdict
 import json
 from pathlib import Path
+import statistics
 from usability.tasks import SCENARIOS
 
 EVIDENCE = Path(__file__).parent / 'evidence'
@@ -40,11 +41,11 @@ def main():
         sessions = [s for run in runs for s in run['sessions']]
         failed = [f'{run["run"]} ({", ".join(k for k, ok in run["checks"].items() if not ok)})'
                   for run in runs if not run['useful_result']]
-        seconds = sorted(s['seconds'] for s in sessions)
         lines += ['', f'**{name}**: {len(runs)} runs, {len(sessions)} sessions, '
-                  f'{sum(run["useful_result"] for run in runs)} useful; service commit {runs[0]["commit"]}; '
+                  f'{sum(run["useful_result"] for run in runs)} useful; commit '
+                  f'{", ".join(sorted({run["commit"] for run in runs}))}; '
                   f'{sum(run["requests"] for run in runs)} requests; median session '
-                  f'{seconds[len(seconds) // 2]} s; Claude Code spend USD '
+                  f'{statistics.median(s["seconds"] for s in sessions):.1f} s; Claude Code spend USD '
                   f'{sum(s.get("cost_usd") or 0 for s in sessions):.2f}.',
                   'Not useful: ' + ('; '.join(failed) if failed else 'none') + '.']
     (EVIDENCE / 'summary.md').write_text('\n'.join(lines) + '\n')

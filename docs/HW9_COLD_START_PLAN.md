@@ -152,7 +152,7 @@ Nothing above was edited. These are the places where what happened differs from 
   a login shell that sourced the user's profile. None of these carries project knowledge; across all
   transcripts the sessions only read the guide, called the service, hashed strings locally and wrote scratch
   files.
-- **Checker.** The checks for S1–S4 were fixed before round 1. Adding S5 and S6 changed two lines of
+- **Checker.** The checks for S1–S4 were fixed before round 1. Adding S5 and S6 changed three lines of
   `usability/check.py` (seeded tasks count as written through the ledger; the plan-task count is capped at
   three) in the same commit as the addendum, before those runs. S1–S4 outcomes are unaffected.
 - **More S6 runs than planned.** The addendum planned S6 twice per agent. Those four runs gave 2/4, so we ran
