@@ -61,6 +61,7 @@ Other payload fields are stored unchanged.
 | `resource_id` | The id of the created task, for example `"task_1"`; `null` if no task is known to exist |
 | `safe_to_retry` | `true` only when `status` is `SAFE_TO_RETRY` |
 | `evidence` | What ActionLedger saw: the tracker's reply, or the lookup result, or a `reason` |
+| `request` | The request this action was recorded with: `{"workflow_id", "tool", "payload"}`. It tells you what the action is, even if you did not send it |
 
 `GET /actions?workflow_id=...` returns `{"actions": [ ... ]}`, one such object per action. An unknown
 workflow returns an empty list.
@@ -87,8 +88,16 @@ workflow returns an empty list.
 ### Resuming work
 
 If you take over a workflow, or you restarted and lost your memory, call
-`GET /actions?workflow_id=<id>` first. It shows which actions already exist and their `resource_id`s. Reuse
-those results; do not recreate them.
+`GET /actions?workflow_id=<id>` first. Each action in the list carries its `request`, so you can read what
+it created (`request.payload.title`, `request.payload.parent_resource_id`) next to its `status` and
+`resource_id`.
+
+- Match existing actions to your plan by their `request.payload`. Do not go by position in the list or by the
+  `action_id`: another client may name its actions differently, and a workflow can hold actions that are not
+  part of your plan.
+- Reuse what exists. Create only what is missing, under your own `action_id`.
+- Leave actions that are not part of your plan alone. Never send a request under an `action_id` you did not
+  choose in order to find out what it is.
 
 ## Errors
 
@@ -135,7 +144,8 @@ curl -s -X POST http://127.0.0.1:8000/execute \
 ```json
 {"action_id": "trip42:step1", "status": "CONFIRMED_SUCCESS", "safe_to_retry": false,
  "resource_id": "task_1",
- "evidence": {"resource_id": "task_1", "tag": "trip42:step1", "payload_hash": "02e0809e…"}}
+ "evidence": {"resource_id": "task_1", "tag": "trip42:step1", "payload_hash": "02e0809e…"},
+ "request": {"workflow_id": "trip42", "tool": "tracker.create_task", "payload": {"title": "Investigate"}}}
 ```
 
 A dependent task then uses that id:

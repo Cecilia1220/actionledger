@@ -70,3 +70,25 @@ def test_guessing_by_position_only_works_without_other_tasks(scenario, useful, t
     monkeypatch.setattr(run, 'run_agent', scripted(finish_by_position))
     summary = run.one_run('test', scenario, ['claude'], 1)
     assert summary['useful_result'] is useful, summary['checks']
+
+
+def finish_by_content(client, incident):
+    """Matches existing actions to the plan by the request each one carries (the HW9 change)."""
+    known = {a['request']['payload']['title']: a['resource_id']
+             for a in client.get('/actions', params={'workflow_id': incident}).json()['actions']}
+    tasks = []
+    for n, title in enumerate(PLAN, 1):
+        if title not in known:
+            known[title] = client.post('/execute', json={
+                'action_id': f'{incident}:{n}', 'workflow_id': incident,
+                'payload': {'title': title, 'parent_resource_id': tasks[-1]['resource_id']}}).json()['resource_id']
+        tasks.append({'title': title, 'resource_id': known[title]})
+    return {'complete': True, 'tasks': tasks, 'not_done': []}
+
+
+@pytest.mark.parametrize('scenario', ['s5', 's6'])
+def test_reading_the_recorded_request_finishes_the_handoff(scenario, tmp_path, monkeypatch):
+    monkeypatch.setattr(run, 'EVIDENCE', tmp_path)
+    monkeypatch.setattr(run, 'run_agent', scripted(finish_by_content))
+    summary = run.one_run('test', scenario, ['claude'], 1)
+    assert summary['useful_result'], summary['checks']
