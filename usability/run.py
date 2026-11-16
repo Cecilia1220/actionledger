@@ -22,7 +22,7 @@ from demo import ROOT, free_port, services
 from usability.check import check, parse_report
 from usability.tasks import SCENARIOS
 
-GUIDE = ROOT / 'docs' / 'AGENT_GUIDE.md'
+GUIDE = Path(os.environ.get('AGENT_GUIDE', ROOT / 'docs' / 'AGENT_GUIDE.md'))  # override to test another version
 EVIDENCE = ROOT / 'usability' / 'evidence'
 TIMEOUT = 480
 MODELS = {'claude': 'claude-sonnet-5-5', 'codex': 'gpt-6-astra'}
@@ -82,8 +82,7 @@ def one_run(round_name, scenario_id, agents, rep):
     used = (agents * 2)[:len(scenario['prompts'])]
     run_id = f'{scenario_id}-{"-".join(used)}-r{rep}'
     out = EVIDENCE / round_name / run_id
-    shutil.rmtree(out, ignore_errors=True)
-    out.mkdir(parents=True)
+    out.mkdir(parents=True)  # refuses to overwrite recorded evidence: pick a new round name or repetition
     data = Path(tempfile.mkdtemp(prefix='al-data-'))
     key, incident = f'agent-{uuid.uuid4().hex[:10]}', f'inc-{uuid.uuid4().hex[:4]}'
     proxy_port, sessions, seeded = free_port(), [], []
@@ -136,7 +135,7 @@ def one_run(round_name, scenario_id, agents, rep):
                'commit': subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], cwd=ROOT, capture_output=True,
                                         text=True).stdout.strip(),
                'versions': {a: subprocess.run([a, '--version'], capture_output=True, text=True).stdout.strip()
-                            for a in sorted(set(used))}}
+                            for a in sorted(set(used)) if shutil.which(a)}}
     (out / 'tracker_tasks.json').write_text(json.dumps(tasks, indent=1))
     (out / 'ledger_actions.json').write_text(json.dumps(actions, indent=1))
     (out / 'summary.json').write_text(json.dumps(summary, indent=1))
