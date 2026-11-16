@@ -1,0 +1,15 @@
+[
+ {
+  "action_id": "inc-6376:step-1",
+  "workflow_id": "inc-6376",
+  "state": "AMBIGUOUS",
+  "request": {
+   "action_id": "inc-6376:step-1",
+   "payload": {
+    "title": "Investigate lost acknowledgement"
+   },
+   "tool": "tracker.create_task",
+   "workflow_id": "inc-6376"
+  }
+ }
+]

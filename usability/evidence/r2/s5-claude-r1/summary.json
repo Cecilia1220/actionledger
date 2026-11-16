@@ -1,0 +1,64 @@
+{
+ "run": "s5-claude-r1",
+ "round": "r2",
+ "scenario": "s5",
+ "title": "Handoff from a client with opaque action ids",
+ "fault": null,
+ "seeded_actions": [
+  "b4fab5f70613",
+  "3f1022c9de34"
+ ],
+ "incident": "inc-0e10",
+ "useful_result": true,
+ "checks": {
+  "task_count": true,
+  "no_duplicate_titles": true,
+  "titles_and_parent_chain": true,
+  "report_parsed": true,
+  "report_complete_flag": true,
+  "reported_ids_exist": true,
+  "used_ids_the_ledger_returned": true,
+  "all_writes_through_ledger": true,
+  "no_access_outside_the_task": true,
+  "reported_ids_match_tracker": true
+ },
+ "requests": 2,
+ "sessions": [
+  {
+   "agent": "claude",
+   "model": "claude-sonnet-5-5",
+   "exit": 0,
+   "seconds": 10.7,
+   "tool_calls": 3,
+   "final_message": "{\"complete\": true, \"tasks\": [{\"title\": \"Investigate lost acknowledgement\", \"resource_id\": \"task_1\"}, {\"title\": \"Draft remediation plan\", \"resource_id\": \"task_2\"}, {\"title\": \"Verify remediation\", \"resource_id\": \"task_3\"}], \"not_done\": [], \"notes\": \"Tasks 1 and 2 already existed as CONFIRMED_SUCCESS, with task 2 depending on task_1, so I reused them. I created only task 3, with action_id inc-0e10:step-3 and parent task_2.\"}",
+   "report": {
+    "complete": true,
+    "tasks": [
+     {
+      "title": "Investigate lost acknowledgement",
+      "resource_id": "task_1"
+     },
+     {
+      "title": "Draft remediation plan",
+      "resource_id": "task_2"
+     },
+     {
+      "title": "Verify remediation",
+      "resource_id": "task_3"
+     }
+    ],
+    "not_done": [],
+    "notes": "Tasks 1 and 2 already existed as CONFIRMED_SUCCESS, with task 2 depending on task_1, so I reused them. I created only task 3, with action_id inc-0e10:step-3 and parent task_2."
+   },
+   "workdir": "<workdir>",
+   "turns": 4,
+   "cost_usd": 0.041535800000000005,
+   "requests_so_far": 2
+  }
+ ],
+ "guide_sha256": "50b679823eb7391336a377ff3899116f30c2c0db337921d5337edda38a685889",
+ "commit": "542011c",
+ "versions": {
+  "claude": "2.1.283 (Claude Code)"
+ }
+}

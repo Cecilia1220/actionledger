@@ -1,0 +1,40 @@
+INFO:     Started server process [96188]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:50281 (Press CTRL+C to quit)
+INFO:     127.0.0.1:50305 - "GET /health HTTP/1.1" 200 OK
+INFO:     Started server process [96296]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:50282 (Press CTRL+C to quit)
+INFO:     127.0.0.1:50314 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50321 - "GET /health HTTP/1.1" 200 OK
+LEDGER: 8eda4dade1dc -> EXECUTING
+TRACKER: committed task_1, tag=8eda4dade1dc
+INFO:     127.0.0.1:50323 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: 8eda4dade1dc -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:50322 - "POST /execute HTTP/1.1" 200 OK
+LEDGER: 8cb962ec17a2 -> EXECUTING
+TRACKER: committed task_2, tag=8cb962ec17a2
+INFO:     127.0.0.1:50325 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: 8cb962ec17a2 -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:50324 - "POST /execute HTTP/1.1" 200 OK
+LEDGER: 65ee53b87d5d -> EXECUTING
+TRACKER: committed task_3, tag=65ee53b87d5d
+INFO:     127.0.0.1:50328 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: 65ee53b87d5d -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:50327 - "POST /execute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50408 - "GET /actions?workflow_id=inc-eabd HTTP/1.1" 200 OK
+LEDGER: inc-eabd:step-3 -> EXECUTING
+TRACKER: committed task_4, tag=inc-eabd:step-3
+INFO:     127.0.0.1:50438 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: inc-eabd:step-3 -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:50437 - "POST /execute HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96296]
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96188]

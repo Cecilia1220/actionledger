@@ -1,0 +1,32 @@
+INFO:     Started server process [94062]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:49397 (Press CTRL+C to quit)
+INFO:     127.0.0.1:49403 - "GET /health HTTP/1.1" 200 OK
+INFO:     Started server process [94063]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:49398 (Press CTRL+C to quit)
+INFO:     127.0.0.1:49407 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49411 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49412 - "POST /faults HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49452 - "GET /actions?workflow_id=inc-5765 HTTP/1.1" 200 OK
+LEDGER: inc-5765:step-1 -> EXECUTING
+TRACKER: committed task_1, tag=inc-5765:step-1
+TRACKER: injected LOST ACK after commit (HTTP 504)
+INFO:     127.0.0.1:49473 - "POST /tasks HTTP/1.1" 504 Gateway Timeout
+LEDGER: inc-5765:step-1 -> UNKNOWN
+INFO:     127.0.0.1:49474 - "GET /tasks?tag=inc-5765%3Astep-1 HTTP/1.1" 503 Service Unavailable
+LEDGER: inc-5765:step-1 -> AMBIGUOUS
+INFO:     127.0.0.1:49471 - "POST /execute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49535 - "GET /tasks?tag=inc-5765%3Astep-1 HTTP/1.1" 503 Service Unavailable
+LEDGER: inc-5765:step-1 -> AMBIGUOUS
+INFO:     127.0.0.1:49534 - "GET /status/inc-5765%3Astep-1 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [94063]
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [94062]

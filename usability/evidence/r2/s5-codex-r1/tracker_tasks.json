@@ -1,0 +1,25 @@
+[
+ {
+  "resource_id": "task_1",
+  "tag": "3985a9505b8b",
+  "payload": {
+   "title": "Investigate lost acknowledgement"
+  }
+ },
+ {
+  "resource_id": "task_2",
+  "tag": "e4d27fb4c40f",
+  "payload": {
+   "title": "Draft remediation plan",
+   "parent_resource_id": "task_1"
+  }
+ },
+ {
+  "resource_id": "task_3",
+  "tag": "inc-d6d2:step-3",
+  "payload": {
+   "title": "Verify remediation",
+   "parent_resource_id": "task_2"
+  }
+ }
+]

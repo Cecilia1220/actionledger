@@ -1,0 +1,35 @@
+INFO:     Started server process [95146]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:49876 (Press CTRL+C to quit)
+INFO:     127.0.0.1:49880 - "GET /health HTTP/1.1" 200 OK
+INFO:     Started server process [95149]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:49877 (Press CTRL+C to quit)
+INFO:     127.0.0.1:49885 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49889 - "GET /health HTTP/1.1" 200 OK
+LEDGER: 3985a9505b8b -> EXECUTING
+TRACKER: committed task_1, tag=3985a9505b8b
+INFO:     127.0.0.1:49891 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: 3985a9505b8b -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:49890 - "POST /execute HTTP/1.1" 200 OK
+LEDGER: e4d27fb4c40f -> EXECUTING
+TRACKER: committed task_2, tag=e4d27fb4c40f
+INFO:     127.0.0.1:49893 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: e4d27fb4c40f -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:49892 - "POST /execute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49983 - "GET /actions?workflow_id=inc-d6d2 HTTP/1.1" 200 OK
+LEDGER: inc-d6d2:step-3 -> EXECUTING
+TRACKER: committed task_3, tag=inc-d6d2:step-3
+INFO:     127.0.0.1:50007 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: inc-d6d2:step-3 -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:50006 - "POST /execute HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [95149]
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [95146]
