@@ -1,0 +1,70 @@
+{
+ "run": "s6-codex-r3",
+ "round": "r2",
+ "scenario": "s6",
+ "title": "Handoff, opaque ids, one unrelated task in the workflow",
+ "fault": null,
+ "seeded_actions": [
+  "8eda4dade1dc",
+  "8cb962ec17a2",
+  "65ee53b87d5d"
+ ],
+ "incident": "inc-eabd",
+ "useful_result": true,
+ "checks": {
+  "task_count": true,
+  "no_duplicate_titles": true,
+  "titles_and_parent_chain": true,
+  "report_parsed": true,
+  "report_complete_flag": true,
+  "reported_ids_exist": true,
+  "used_ids_the_ledger_returned": true,
+  "all_writes_through_ledger": true,
+  "no_access_outside_the_task": true,
+  "reported_ids_match_tracker": true
+ },
+ "requests": 2,
+ "sessions": [
+  {
+   "agent": "codex",
+   "model": "gpt-6-astra",
+   "exit": 0,
+   "seconds": 18.4,
+   "tool_calls": 3,
+   "final_message": "{\"complete\":true,\"tasks\":[{\"title\":\"Investigate lost acknowledgement\",\"resource_id\":\"task_1\"},{\"title\":\"Draft remediation plan\",\"resource_id\":\"task_3\"},{\"title\":\"Verify remediation\",\"resource_id\":\"task_4\"}],\"not_done\":[],\"notes\":\"Reused the two existing plan tasks and created only Verify remediation. Dependencies are task_3 \u2192 task_1 and task_4 \u2192 task_3.\"}",
+   "report": {
+    "complete": true,
+    "tasks": [
+     {
+      "title": "Investigate lost acknowledgement",
+      "resource_id": "task_1"
+     },
+     {
+      "title": "Draft remediation plan",
+      "resource_id": "task_3"
+     },
+     {
+      "title": "Verify remediation",
+      "resource_id": "task_4"
+     }
+    ],
+    "not_done": [],
+    "notes": "Reused the two existing plan tasks and created only Verify remediation. Dependencies are task_3 \u2192 task_1 and task_4 \u2192 task_3."
+   },
+   "workdir": "<workdir>",
+   "usage": {
+    "input_tokens": 75442,
+    "cached_input_tokens": 66688,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 344,
+    "reasoning_output_tokens": 0
+   },
+   "requests_so_far": 2
+  }
+ ],
+ "guide_sha256": "50b679823eb7391336a377ff3899116f30c2c0db337921d5337edda38a685889",
+ "commit": "542011c",
+ "versions": {
+  "codex": "codex-cli 0.154.0"
+ }
+}

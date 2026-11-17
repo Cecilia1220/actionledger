@@ -1,0 +1,40 @@
+INFO:     Started server process [95867]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:50075 (Press CTRL+C to quit)
+INFO:     127.0.0.1:50086 - "GET /health HTTP/1.1" 200 OK
+INFO:     Started server process [95872]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:50080 (Press CTRL+C to quit)
+INFO:     127.0.0.1:50095 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50112 - "GET /health HTTP/1.1" 200 OK
+LEDGER: 833593c3b7c5 -> EXECUTING
+TRACKER: committed task_1, tag=833593c3b7c5
+INFO:     127.0.0.1:50120 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: 833593c3b7c5 -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:50117 - "POST /execute HTTP/1.1" 200 OK
+LEDGER: b650fd2b3c20 -> EXECUTING
+TRACKER: committed task_2, tag=b650fd2b3c20
+INFO:     127.0.0.1:50133 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: b650fd2b3c20 -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:50127 - "POST /execute HTTP/1.1" 200 OK
+LEDGER: 82c2640405da -> EXECUTING
+TRACKER: committed task_3, tag=82c2640405da
+INFO:     127.0.0.1:50140 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: 82c2640405da -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:50139 - "POST /execute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50186 - "GET /actions?workflow_id=inc-a877 HTTP/1.1" 200 OK
+LEDGER: inc-a877:verify-remediation -> EXECUTING
+TRACKER: committed task_4, tag=inc-a877:verify-remediation
+INFO:     127.0.0.1:50216 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: inc-a877:verify-remediation -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:50215 - "POST /execute HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [95872]
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [95867]

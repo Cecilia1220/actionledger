@@ -1,0 +1,67 @@
+{
+ "run": "s1-codex-r1",
+ "round": "r1",
+ "scenario": "s1",
+ "title": "Lost acknowledgement on the first write",
+ "fault": {
+  "mode": "lost_ack"
+ },
+ "incident": "inc-02ad",
+ "useful_result": true,
+ "checks": {
+  "task_count": true,
+  "no_duplicate_titles": true,
+  "titles_and_parent_chain": true,
+  "report_parsed": true,
+  "report_complete_flag": true,
+  "reported_ids_exist": true,
+  "used_ids_the_ledger_returned": true,
+  "all_writes_through_ledger": true,
+  "no_access_outside_the_task": true,
+  "reported_ids_match_tracker": true
+ },
+ "requests": 4,
+ "sessions": [
+  {
+   "agent": "codex",
+   "model": "gpt-6-astra",
+   "exit": 0,
+   "seconds": 30.2,
+   "tool_calls": 5,
+   "final_message": "{\"complete\":true,\"tasks\":[{\"title\":\"Investigate lost acknowledgement\",\"resource_id\":\"task_1\"},{\"title\":\"Draft remediation plan\",\"resource_id\":\"task_2\"},{\"title\":\"Verify remediation\",\"resource_id\":\"task_3\"}],\"not_done\":[],\"notes\":\"Recorded all three tasks in workflow inc-02ad, with task_2 depending on task_1 and task_3 depending on task_2. ActionLedger recovered the first task\u2019s lost acknowledgement and confirmed the remaining writes.\"}",
+   "report": {
+    "complete": true,
+    "tasks": [
+     {
+      "title": "Investigate lost acknowledgement",
+      "resource_id": "task_1"
+     },
+     {
+      "title": "Draft remediation plan",
+      "resource_id": "task_2"
+     },
+     {
+      "title": "Verify remediation",
+      "resource_id": "task_3"
+     }
+    ],
+    "not_done": [],
+    "notes": "Recorded all three tasks in workflow inc-02ad, with task_2 depending on task_1 and task_3 depending on task_2. ActionLedger recovered the first task\u2019s lost acknowledgement and confirmed the remaining writes."
+   },
+   "workdir": "<workdir>",
+   "usage": {
+    "input_tokens": 122642,
+    "cached_input_tokens": 105728,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 572,
+    "reasoning_output_tokens": 0
+   },
+   "requests_so_far": 4
+  }
+ ],
+ "guide_sha256": "8189d81646d06dec7f44f1cbdb647a9ddd3bf6b4c385ff4e4913879e2cb9c660",
+ "commit": "6963d48",
+ "versions": {
+  "codex": "codex-cli 0.154.0"
+ }
+}

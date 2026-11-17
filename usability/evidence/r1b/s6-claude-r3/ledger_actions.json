@@ -1,0 +1,43 @@
+[
+ {
+  "action_id": "2638304187fc",
+  "workflow_id": "inc-1799",
+  "state": "CONFIRMED_SUCCESS",
+  "request": {
+   "action_id": "2638304187fc",
+   "payload": {
+    "title": "Investigate lost acknowledgement"
+   },
+   "tool": "tracker.create_task",
+   "workflow_id": "inc-1799"
+  }
+ },
+ {
+  "action_id": "1aabb98f5cc5",
+  "workflow_id": "inc-1799",
+  "state": "CONFIRMED_SUCCESS",
+  "request": {
+   "action_id": "1aabb98f5cc5",
+   "payload": {
+    "parent_resource_id": "task_1",
+    "title": "Notify incident channel"
+   },
+   "tool": "tracker.create_task",
+   "workflow_id": "inc-1799"
+  }
+ },
+ {
+  "action_id": "b651618cb275",
+  "workflow_id": "inc-1799",
+  "state": "CONFIRMED_SUCCESS",
+  "request": {
+   "action_id": "b651618cb275",
+   "payload": {
+    "parent_resource_id": "task_1",
+    "title": "Draft remediation plan"
+   },
+   "tool": "tracker.create_task",
+   "workflow_id": "inc-1799"
+  }
+ }
+]

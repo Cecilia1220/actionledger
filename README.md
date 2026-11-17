@@ -1,4 +1,6 @@
-# ActionLedger — MAS.665 HW6/HW7
+# ActionLedger — MAS.665 HW6–HW9
+
+**Agents: start with [docs/AGENT_GUIDE.md](docs/AGENT_GUIDE.md).** It is the whole interface on one page.
 
 A small agent-facing service for recovering side-effecting tool calls after an acknowledgement is lost. A real OpenAI tool-using client calls ActionLedger over HTTP; ActionLedger persists the request in SQLite, calls a deliberately non-idempotent mock tracker, verifies uncertain outcomes, and returns structured evidence. The model receives that result and uses the recovered task ID to create a dependent follow-up task.
 
@@ -59,7 +61,7 @@ Ledger headers: `X-Agent-Key` (value from `.env`, default local demo key).
 - `GET /status/{action_id}`: return persisted outcome, reverify stale/uncertain work.
 - `GET /actions?workflow_id=trip42`: discover prior work after client restart.
 
-Responses include `status`, `resource_id`, `safe_to_retry`, and `evidence`.
+Responses include `status`, `resource_id`, `safe_to_retry`, `evidence`, and (HW9) `request`: the `workflow_id`, `tool` and `payload` the action was recorded with, so an agent that did not send an action can see what it is.
 
 - `CONFIRMED_SUCCESS`: write acknowledged; continue.
 - `RECOVERED_SUCCESS`: exactly one tagged task with matching payload hash found; continue using its ID.
@@ -86,6 +88,21 @@ python -m bench.report results/phase1-opus
 
 Needs `ANTHROPIC_API_KEY` in `.env`; `--model claude-haiku-5-5` for the cheap robustness runs. Every run starts its own services on free ports. Results, per-run JSON lines and full traces are committed under `results/` (`summary.md` per phase).
 
+## HW9 cold-start usability
+
+Fresh Claude Code and Codex sessions get an empty directory holding only `docs/AGENT_GUIDE.md`, a service address, a per-run key and a job in plain words. `usability/run.py` starts the services and a recording pass-through, launches the session, then checks the tracker's SQLite file. The scenarios and outcome checks are in [docs/HW9_COLD_START_PLAN.md](docs/HW9_COLD_START_PLAN.md): S1–S4 were fixed before the first run, S5–S6 were added after round 1 and before their own runs.
+
+```bash
+python -m pytest -q tests/test_usability_harness.py                      # harness check with a scripted client, no key
+python -m usability.run --round my-r2                                    # S1–S4, both agents, two repetitions
+python -m usability.run --round my-r2 --scenarios s5,s6                  # handoff boundary scenarios
+python -m usability.report                                               # summary of the committed rounds
+```
+
+Agent runs need the `claude` and `codex` CLIs signed in, and `ANTHROPIC_API_KEY` in `.env` for Claude Code. Use a new round name: from this version on the runner refuses to overwrite a recorded run. To repeat the rounds from before the change, check out commit `172d84e` first; that older runner replaces a run folder of the same name.
+
+Results: 16/16 useful in round 1. A handoff from a client whose action ids say nothing, with one unrelated task in the workflow, worked 5/8 times; agents recomputed payload hashes or probed with writes to guess what earlier actions were. After answers carried the recorded `request` it worked 8/8, and 8/8 again with the round 1 guide. Evidence for all 64 runs (task text, request log, agent transcript, tracker and ledger state, checks) is under `usability/evidence/` with a table in `usability/evidence/summary.md`; the slides and the demo video are in `docs/hw9/`.
+
 ## Structure
 
 ```text
@@ -96,6 +113,10 @@ client_agent.py            real OpenAI Responses tool loop
 demo.py                    isolated end-to-end runner + independent assertions
 bench/                     HW7 cases, Claude agent arms, runner, checker, report
 results/                   HW7 benchmark results and traces
+docs/AGENT_GUIDE.md        the agent-facing interface (HW9)
+usability/                 HW9 cold-start scenarios, runner, recording pass-through, checker, evidence
+docs/HW9_COLD_START_PLAN.md scenarios and outcome checks fixed before runs
+docs/hw9/                  final project slides and demo video
 docs/HW7_PREREGISTRATION.md claim, arms, cases and checks fixed before runs
 tests/test_integration.py  actual HTTP/SQLite failure, concurrency, restart tests
 docs/HW6_SUBMISSION.md     exact Canvas paragraph and 60-second shot list

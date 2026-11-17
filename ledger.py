@@ -44,10 +44,20 @@ def read(action_id):
         return db.execute('SELECT * FROM actions WHERE action_id=?', (action_id,)).fetchone()
 
 
+def recorded(row):
+    # HW9 change: every answer carries the request it belongs to, so an agent that did not send it
+    # (a successor, or the same agent after a restart) can see what the action was.
+    result = json.loads(row['result'])
+    request = json.loads(row['request'])
+    result.setdefault('request', {k: request[k] for k in ('workflow_id', 'tool', 'payload')})
+    return result
+
+
 def save(action, state, resource_id=None, evidence=None):
     result = {'action_id': action.action_id, 'status': state,
               'safe_to_retry': state == 'SAFE_TO_RETRY',
-              'resource_id': resource_id, 'evidence': evidence or {}}
+              'resource_id': resource_id, 'evidence': evidence or {},
+              'request': action.model_dump(exclude={'action_id'})}
     with connect('ledger.sqlite3') as db:
         db.execute('UPDATE actions SET state=?,result=?,updated=? WHERE action_id=?',
                    (state, canonical(result), time.time(), action.action_id))
@@ -99,7 +109,7 @@ def execute(action: Action):
             if row['payload_hash'] != identity_hash:
                 raise HTTPException(409, 'action_id already bound to a different request')
             if row['state'] in ('CONFIRMED_SUCCESS', 'RECOVERED_SUCCESS', 'FAILED'):
-                return json.loads(row['result'])
+                return recorded(row)
             if row['state'] != 'SAFE_TO_RETRY':
                 return recover(action, since=row['updated'])
         else:
@@ -130,9 +140,9 @@ def status(action_id: str):
             raise HTTPException(404, 'Unknown action')
         if row['state'] in ('PENDING', 'EXECUTING', 'UNKNOWN', 'AMBIGUOUS'):
             if row['state'] in ('PENDING', 'EXECUTING') and time.time() - row['updated'] < LEASE_SECONDS:
-                return json.loads(row['result']) if row['result'] else {'status': 'PENDING', 'safe_to_retry': False}
+                return recorded(row) if row['result'] else {'status': 'PENDING', 'safe_to_retry': False}
             return recover(Action.model_validate_json(row['request']), since=row['updated'])
-        return json.loads(row['result'])
+        return recorded(row)
 
 
 @app.get('/actions', dependencies=[Depends(auth)])

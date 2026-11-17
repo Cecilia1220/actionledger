@@ -1,0 +1,35 @@
+INFO:     Started server process [88470]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:62627 (Press CTRL+C to quit)
+INFO:     127.0.0.1:62634 - "GET /health HTTP/1.1" 200 OK
+INFO:     Started server process [88471]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:62628 (Press CTRL+C to quit)
+INFO:     127.0.0.1:62638 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62654 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62655 - "POST /faults HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62688 - "GET /actions?workflow_id=inc-66a0 HTTP/1.1" 200 OK
+LEDGER: inc-66a0:step-1 -> EXECUTING
+TRACKER: committed task_1, tag=inc-66a0:step-1
+TRACKER: injected LOST ACK after commit (HTTP 504)
+INFO:     127.0.0.1:62717 - "POST /tasks HTTP/1.1" 504 Gateway Timeout
+LEDGER: inc-66a0:step-1 -> UNKNOWN
+INFO:     127.0.0.1:62718 - "GET /tasks?tag=inc-66a0%3Astep-1 HTTP/1.1" 503 Service Unavailable
+LEDGER: inc-66a0:step-1 -> AMBIGUOUS
+INFO:     127.0.0.1:62716 - "POST /execute HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62806 - "GET /tasks?tag=inc-66a0%3Astep-1 HTTP/1.1" 503 Service Unavailable
+LEDGER: inc-66a0:step-1 -> AMBIGUOUS
+INFO:     127.0.0.1:62805 - "GET /status/inc-66a0%3Astep-1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62883 - "GET /tasks?tag=inc-66a0%3Astep-1 HTTP/1.1" 503 Service Unavailable
+LEDGER: inc-66a0:step-1 -> AMBIGUOUS
+INFO:     127.0.0.1:62882 - "GET /status/inc-66a0%3Astep-1 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [88471]
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [88470]

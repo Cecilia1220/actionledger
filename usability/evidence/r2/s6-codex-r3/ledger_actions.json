@@ -1,0 +1,57 @@
+[
+ {
+  "action_id": "8eda4dade1dc",
+  "workflow_id": "inc-eabd",
+  "state": "CONFIRMED_SUCCESS",
+  "request": {
+   "action_id": "8eda4dade1dc",
+   "payload": {
+    "title": "Investigate lost acknowledgement"
+   },
+   "tool": "tracker.create_task",
+   "workflow_id": "inc-eabd"
+  }
+ },
+ {
+  "action_id": "8cb962ec17a2",
+  "workflow_id": "inc-eabd",
+  "state": "CONFIRMED_SUCCESS",
+  "request": {
+   "action_id": "8cb962ec17a2",
+   "payload": {
+    "parent_resource_id": "task_1",
+    "title": "Notify incident channel"
+   },
+   "tool": "tracker.create_task",
+   "workflow_id": "inc-eabd"
+  }
+ },
+ {
+  "action_id": "65ee53b87d5d",
+  "workflow_id": "inc-eabd",
+  "state": "CONFIRMED_SUCCESS",
+  "request": {
+   "action_id": "65ee53b87d5d",
+   "payload": {
+    "parent_resource_id": "task_1",
+    "title": "Draft remediation plan"
+   },
+   "tool": "tracker.create_task",
+   "workflow_id": "inc-eabd"
+  }
+ },
+ {
+  "action_id": "inc-eabd:step-3",
+  "workflow_id": "inc-eabd",
+  "state": "CONFIRMED_SUCCESS",
+  "request": {
+   "action_id": "inc-eabd:step-3",
+   "payload": {
+    "parent_resource_id": "task_3",
+    "title": "Verify remediation"
+   },
+   "tool": "tracker.create_task",
+   "workflow_id": "inc-eabd"
+  }
+ }
+]

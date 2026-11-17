@@ -1,0 +1,33 @@
+[
+ {
+  "resource_id": "task_1",
+  "tag": "3e532ddddfe2",
+  "payload": {
+   "title": "Investigate lost acknowledgement"
+  }
+ },
+ {
+  "resource_id": "task_2",
+  "tag": "8150067b89a0",
+  "payload": {
+   "title": "Notify incident channel",
+   "parent_resource_id": "task_1"
+  }
+ },
+ {
+  "resource_id": "task_3",
+  "tag": "b768bfbd1c30",
+  "payload": {
+   "title": "Draft remediation plan",
+   "parent_resource_id": "task_1"
+  }
+ },
+ {
+  "resource_id": "task_4",
+  "tag": "inc-64c1:step-3",
+  "payload": {
+   "title": "Verify remediation",
+   "parent_resource_id": "task_3"
+  }
+ }
+]

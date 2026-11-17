@@ -113,3 +113,24 @@ def test_visibility_bound_turns_lasting_empty_lookup_into_safe_retry(tmp_path):
         assert ledger.post('/execute', json=request('w:step2')).json()['status'] == 'CONFIRMED_SUCCESS'
         tracker.post('/faults', json={'mode': 'lost_ack', 'break_lookup': True})
         assert ledger.post('/execute', json=request('w:step3')).json()['status'] == 'AMBIGUOUS'
+
+
+def test_hw9_answers_carry_the_recorded_request(system):
+    ledger, tracker, _, data = system
+    ids = ['9f3c21', 'a71e88', 'c2d045']  # action ids that say nothing about the work
+    first = ledger.post('/execute', json=request(ids[0], title='Investigate')).json()
+    assert first['request'] == {'workflow_id': 'w', 'tool': 'tracker.create_task', 'payload': {'title': 'Investigate'}}
+    tracker.post('/faults', json={'mode': 'lost_ack'})
+    ledger.post('/execute', json=request(ids[1], title='Notify', parent_resource_id=first['resource_id']))
+    tracker.post('/faults', json={'mode': 'lost_ack', 'break_lookup': True})
+    ledger.post('/execute', json=request(ids[2], title='Plan', parent_resource_id=first['resource_id']))
+    listed = ledger.get('/actions', params={'workflow_id': 'w'}).json()['actions']
+    assert [a['status'] for a in listed] == ['CONFIRMED_SUCCESS', 'RECOVERED_SUCCESS', 'AMBIGUOUS']
+    assert [a['request']['payload']['title'] for a in listed] == ['Investigate', 'Notify', 'Plan']
+    assert listed[2]['request']['payload']['parent_resource_id'] == first['resource_id']
+    assert ledger.post('/execute', json=request(ids[0], title='Investigate')).json()['request'] == first['request']
+    with sqlite3.connect(data / 'ledger.sqlite3') as db:  # a row written before this change has no request in it
+        stored = json.loads(db.execute('SELECT result FROM actions WHERE action_id=?', (ids[0],)).fetchone()[0])
+        del stored['request']
+        db.execute('UPDATE actions SET result=? WHERE action_id=?', (json.dumps(stored), ids[0]))
+    assert ledger.get(f'/status/{ids[0]}').json()['request'] == first['request']

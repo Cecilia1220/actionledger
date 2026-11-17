@@ -1,0 +1,95 @@
+{
+ "run": "s2-claude-codex-r2",
+ "round": "r1",
+ "scenario": "s2",
+ "title": "Handoff between two agents",
+ "fault": null,
+ "incident": "inc-3f3f",
+ "useful_result": true,
+ "checks": {
+  "task_count": true,
+  "no_duplicate_titles": true,
+  "titles_and_parent_chain": true,
+  "report_parsed": true,
+  "report_complete_flag": true,
+  "reported_ids_exist": true,
+  "used_ids_the_ledger_returned": true,
+  "all_writes_through_ledger": true,
+  "no_access_outside_the_task": true,
+  "reported_ids_match_tracker": true
+ },
+ "requests": 5,
+ "sessions": [
+  {
+   "agent": "claude",
+   "model": "claude-sonnet-5-5",
+   "exit": 0,
+   "seconds": 13.9,
+   "tool_calls": 4,
+   "final_message": "{\"complete\": true, \"tasks\": [{\"title\": \"Investigate lost acknowledgement\", \"resource_id\": \"task_1\"}, {\"title\": \"Draft remediation plan\", \"resource_id\": \"task_2\"}], \"not_done\": [\"Task 3 \\\"Verify remediation\\\" was not recorded, as instructed, because the shift ends early. Another agent will record it.\"], \"notes\": \"Workflow inc-3f3f had no existing actions. Tasks 1 and 2 were created and both returned CONFIRMED_SUCCESS. Task 2 depends on task_1.\"}",
+   "report": {
+    "complete": true,
+    "tasks": [
+     {
+      "title": "Investigate lost acknowledgement",
+      "resource_id": "task_1"
+     },
+     {
+      "title": "Draft remediation plan",
+      "resource_id": "task_2"
+     }
+    ],
+    "not_done": [
+     "Task 3 \"Verify remediation\" was not recorded, as instructed, because the shift ends early. Another agent will record it."
+    ],
+    "notes": "Workflow inc-3f3f had no existing actions. Tasks 1 and 2 were created and both returned CONFIRMED_SUCCESS. Task 2 depends on task_1."
+   },
+   "workdir": "<workdir>",
+   "turns": 5,
+   "cost_usd": 0.0437074,
+   "requests_so_far": 3
+  },
+  {
+   "agent": "codex",
+   "model": "gpt-6-astra",
+   "exit": 0,
+   "seconds": 17.5,
+   "tool_calls": 3,
+   "final_message": "{\"complete\":true,\"tasks\":[{\"title\":\"Investigate lost acknowledgement\",\"resource_id\":\"task_1\"},{\"title\":\"Draft remediation plan\",\"resource_id\":\"task_2\"},{\"title\":\"Verify remediation\",\"resource_id\":\"task_3\"}],\"not_done\":[],\"notes\":\"Reused the two existing confirmed tasks without duplication. Created Verify remediation with task_2 as its dependency; creation was confirmed.\"}",
+   "report": {
+    "complete": true,
+    "tasks": [
+     {
+      "title": "Investigate lost acknowledgement",
+      "resource_id": "task_1"
+     },
+     {
+      "title": "Draft remediation plan",
+      "resource_id": "task_2"
+     },
+     {
+      "title": "Verify remediation",
+      "resource_id": "task_3"
+     }
+    ],
+    "not_done": [],
+    "notes": "Reused the two existing confirmed tasks without duplication. Created Verify remediation with task_2 as its dependency; creation was confirmed."
+   },
+   "workdir": "<workdir>",
+   "usage": {
+    "input_tokens": 74304,
+    "cached_input_tokens": 66176,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 333,
+    "reasoning_output_tokens": 0
+   },
+   "requests_so_far": 5
+  }
+ ],
+ "guide_sha256": "8189d81646d06dec7f44f1cbdb647a9ddd3bf6b4c385ff4e4913879e2cb9c660",
+ "commit": "6963d48",
+ "versions": {
+  "claude": "2.1.283 (Claude Code)",
+  "codex": "codex-cli 0.154.0"
+ }
+}

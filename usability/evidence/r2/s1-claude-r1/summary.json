@@ -1,0 +1,63 @@
+{
+ "run": "s1-claude-r1",
+ "round": "r2",
+ "scenario": "s1",
+ "title": "Lost acknowledgement on the first write",
+ "fault": {
+  "mode": "lost_ack"
+ },
+ "seeded_actions": [],
+ "incident": "inc-f74c",
+ "useful_result": true,
+ "checks": {
+  "task_count": true,
+  "no_duplicate_titles": true,
+  "titles_and_parent_chain": true,
+  "report_parsed": true,
+  "report_complete_flag": true,
+  "reported_ids_exist": true,
+  "used_ids_the_ledger_returned": true,
+  "all_writes_through_ledger": true,
+  "no_access_outside_the_task": true,
+  "reported_ids_match_tracker": true
+ },
+ "requests": 4,
+ "sessions": [
+  {
+   "agent": "claude",
+   "model": "claude-sonnet-5-5",
+   "exit": 0,
+   "seconds": 16.1,
+   "tool_calls": 5,
+   "final_message": "{\"complete\": true, \"tasks\": [{\"title\": \"Investigate lost acknowledgement\", \"resource_id\": \"task_1\"}, {\"title\": \"Draft remediation plan\", \"resource_id\": \"task_2\"}, {\"title\": \"Verify remediation\", \"resource_id\": \"task_3\"}], \"not_done\": [], \"notes\": \"The workflow was empty at the start. Task 1's acknowledgement was lost, and ActionLedger recovered it as RECOVERED_SUCCESS with exactly one match, so I did not create it again. Tasks 2 and 3 were confirmed and depend on task_1 and task_2 in turn.\"}",
+   "report": {
+    "complete": true,
+    "tasks": [
+     {
+      "title": "Investigate lost acknowledgement",
+      "resource_id": "task_1"
+     },
+     {
+      "title": "Draft remediation plan",
+      "resource_id": "task_2"
+     },
+     {
+      "title": "Verify remediation",
+      "resource_id": "task_3"
+     }
+    ],
+    "not_done": [],
+    "notes": "The workflow was empty at the start. Task 1's acknowledgement was lost, and ActionLedger recovered it as RECOVERED_SUCCESS with exactly one match, so I did not create it again. Tasks 2 and 3 were confirmed and depend on task_1 and task_2 in turn."
+   },
+   "workdir": "<workdir>",
+   "turns": 6,
+   "cost_usd": 0.05416280000000001,
+   "requests_so_far": 4
+  }
+ ],
+ "guide_sha256": "50b679823eb7391336a377ff3899116f30c2c0db337921d5337edda38a685889",
+ "commit": "542011c",
+ "versions": {
+  "claude": "2.1.283 (Claude Code)"
+ }
+}

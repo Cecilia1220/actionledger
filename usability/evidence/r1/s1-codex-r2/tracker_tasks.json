@@ -1,0 +1,25 @@
+[
+ {
+  "resource_id": "task_1",
+  "tag": "inc-994e:step-1",
+  "payload": {
+   "title": "Investigate lost acknowledgement"
+  }
+ },
+ {
+  "resource_id": "task_2",
+  "tag": "inc-994e:step-2",
+  "payload": {
+   "title": "Draft remediation plan",
+   "parent_resource_id": "task_1"
+  }
+ },
+ {
+  "resource_id": "task_3",
+  "tag": "inc-994e:step-3",
+  "payload": {
+   "title": "Verify remediation",
+   "parent_resource_id": "task_2"
+  }
+ }
+]

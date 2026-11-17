@@ -1,0 +1,39 @@
+INFO:     Started server process [92887]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:65344 (Press CTRL+C to quit)
+INFO:     127.0.0.1:65357 - "GET /health HTTP/1.1" 200 OK
+INFO:     Started server process [92892]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:65347 (Press CTRL+C to quit)
+INFO:     127.0.0.1:65368 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65391 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65392 - "POST /faults HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65455 - "GET /actions?workflow_id=inc-6d93 HTTP/1.1" 200 OK
+LEDGER: inc-6d93:step-1 -> EXECUTING
+TRACKER: committed task_1, tag=inc-6d93:step-1
+TRACKER: injected LOST ACK after commit (HTTP 504)
+INFO:     127.0.0.1:65494 - "POST /tasks HTTP/1.1" 504 Gateway Timeout
+LEDGER: inc-6d93:step-1 -> UNKNOWN
+INFO:     127.0.0.1:65495 - "GET /tasks?tag=inc-6d93%3Astep-1 HTTP/1.1" 200 OK
+LEDGER: inc-6d93:step-1 -> RECOVERED_SUCCESS
+INFO:     127.0.0.1:65493 - "POST /execute HTTP/1.1" 200 OK
+LEDGER: inc-6d93:step-2 -> EXECUTING
+TRACKER: committed task_2, tag=inc-6d93:step-2
+INFO:     127.0.0.1:65512 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: inc-6d93:step-2 -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:65511 - "POST /execute HTTP/1.1" 200 OK
+LEDGER: inc-6d93:step-3 -> EXECUTING
+TRACKER: committed task_3, tag=inc-6d93:step-3
+INFO:     127.0.0.1:49171 - "POST /tasks HTTP/1.1" 200 OK
+LEDGER: inc-6d93:step-3 -> CONFIRMED_SUCCESS
+INFO:     127.0.0.1:49170 - "POST /execute HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [92892]
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [92887]
